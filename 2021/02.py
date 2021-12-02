@@ -36,7 +36,7 @@ def solve_2(commands):
 if __name__ == "__main__":
     p = Path(__file__)
     with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
-        input_commands = [(lambda a, b: [a, int(b)])(*r.split(' ')) for r in f.read().split('\n') if r != '']
+        input_commands = [(lambda a, b: [a, int(b)])(*r.split(' ')) for r in f.readlines() if r != '']
 
     print("Part 1:", solve_1(input_commands))
     print("Part 2:", solve_2(input_commands))
