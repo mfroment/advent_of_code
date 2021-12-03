@@ -13,13 +13,19 @@ SUM = 2020
 def solve_1(values):
     diffs = set()
     for v in values:
-        if SUM-v in diffs:
-            return v * (SUM-v)
+        if SUM - v in diffs:
+            return v * (SUM - v)
         diffs.add(v)
     return None
 
 
-def solve_2(s):
+def solve_2(values):
+    for i, v in enumerate(values):
+        diffs = set()
+        for j in range(i + 1, len(values)):
+            if SUM - v - values[j] in diffs:
+                return v * values[j] * (SUM - v - values[j])
+            diffs.add(values[j])
     return None
 
 

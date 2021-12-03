@@ -8,5 +8,4 @@ def test_1():
 
 
 def test_2():
-    assert solve_2(inputs) is None
-0
+    assert solve_2(inputs) == 241861950
