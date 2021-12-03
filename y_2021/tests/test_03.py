@@ -1,4 +1,4 @@
-from d_03 import *
+from y_2021.d_03 import *
 
 input_bitarrays = parse_input(__file__)
 

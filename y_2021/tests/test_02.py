@@ -1,4 +1,4 @@
-from d_02 import *
+from y_2021.d_02 import *
 
 input_commands = parse_input(__file__)
 

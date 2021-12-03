@@ -1,4 +1,4 @@
-from d_01 import *
+from y_2021.d_01 import *
 
 input_depths = parse_input(__file__)
 

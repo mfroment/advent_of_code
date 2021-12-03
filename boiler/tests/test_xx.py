@@ -1,4 +1,4 @@
-from d_xx import *
+from boiler.d_xx import *
 
 input_s = parse_input(__file__)
 
