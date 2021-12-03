@@ -1,6 +1,12 @@
 from pathlib import Path
 
 
+def parse_input(file=__file__):
+    p = Path(file)
+    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+        return [[int(a) for a in r.strip()] for r in f.readlines() if r != '']
+
+
 def bitarray_to_int(bit):
     str_rep = "".join([str(b) for b in bit])
     return int(str_rep, 2)
@@ -52,9 +58,7 @@ def solve_2(bits):
 
 
 if __name__ == "__main__":
-    p = Path(__file__)
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
-        input_bitarrays = [[int(a) for a in r.strip()] for r in f.readlines() if r != '']
+    input_bitarrays = parse_input()
 
     print("Part 1:", solve_1(input_bitarrays))
     print("Part 2:", solve_2(input_bitarrays))
