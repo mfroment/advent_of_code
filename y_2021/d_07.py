@@ -35,21 +35,13 @@ def solve_naive(values, fuel_consumption):
 
 def solve_1(values):
     # The optimal position is the median (for odd number of inputs; the median range for even number of inputs)
+    # Proof: just stand on the median (range) and see what happens when moving away (the fuel consumption increases)
     return fuel_consumption_1(values, int(statistics.median(values)))
 
 
 def solve_2(values):
     # The optimal position is the mean m (if it's an integer; if not, it's either int(m), int(m)+1)
-    # Consider the incremental fuel consumption:
-    #    f(x)   == sum([(x-v)  *(x-v+1)//2 for v in values]
-    #    f(x-1) == sum([(x-v-1)*(x-v)  //2 for v in values]
-    #    f(x)-f(x-1) == sum([(x-v)*(x-v+1-x+v+1) // 2 for v in values]
-    #                == sum([2*(x-v) // 2 for v in values ]
-    #                == sum([x-v for v in values])
-    #                == n*x - sum(values)
-    #    This is negative is x<mean(values) and positive if x>mean(values).
-    #    In other words, the fuel consumption is decreasing until x reaches the mean value, then increases.
-    #    Therefore, the minimum fuel consumption is reached at the mean (rounded up or down if not an integer).
+    # Proof here: https://colab.research.google.com/drive/1i_d5pijwghF5DEugMoeoC52lCUoOL3ws?usp=sharing
     avg = int(statistics.mean(values))
     return min([fuel_consumption_2(values, m) for m in [avg, avg + 1]])
 
@@ -58,7 +50,4 @@ if __name__ == "__main__":
     input_values = parse_input()
 
     print("Part 1:", solve_naive(input_values, fuel_consumption_1), solve_1(input_values))
-    print("Part 2:", solve_naive(input_values, fuel_consumption_2), solve_2(input_values))
-
-    input_values = [1,5000,5000]
     print("Part 2:", solve_naive(input_values, fuel_consumption_2), solve_2(input_values))
