@@ -7,15 +7,13 @@ def parse_input(file=__file__):
     with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
         for v in f.readline().split(','):
             fishes[int(v)] += 1
-        return fishes
+    return fishes
 
 
 def add_one_day(fishes):
-    respawn = fishes[0]
-    fishes = fishes[1:]
-    fishes.append(respawn)
-    fishes[6] += respawn
-    return fishes
+    next_fishes = fishes[1:] + [fishes[0]]
+    next_fishes[6] += fishes[0]
+    return next_fishes
 
 
 def solve(fishes, day_count):
