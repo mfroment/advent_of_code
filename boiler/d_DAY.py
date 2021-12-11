@@ -1,10 +1,15 @@
 from pathlib import Path
 
 
-def parse_input(file=__file__):
+def parse_input(file=__file__, suffix=None):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
-        return [int(r) for r in f.readlines() if r != '']
+    res = []
+    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+        for r in f.readlines():
+            if r == '':
+                continue
+            res.append([int(v) for v in r.strip()])
+        return res
 
 
 def solve_1(values):
