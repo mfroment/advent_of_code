@@ -5,7 +5,7 @@ import re
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
         for r in f.readlines():
             m = re.search(r'(\d+)-(\d+) (.): (\w+)', r)
             res.append({'min': int(m.group(1)), 'max': int(m.group(2)), 'char': m.group(3), 'password': m.group(4)})

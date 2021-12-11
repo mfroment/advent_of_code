@@ -4,7 +4,7 @@ from pathlib import Path
 def parse_input(file=__file__):
     p = Path(file)
     fishes = [0] * 9
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
         for v in f.readline().split(','):
             fishes[int(v)] += 1
     return fishes
