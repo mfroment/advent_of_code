@@ -4,10 +4,10 @@ import copy
 from functools import reduce
 
 
-def parse_input(file=__file__):
+def parse_input(file=__file__, extension=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if extension is None else '.' + extension))) as f:
         for r in f.readlines():
             if r == '':
                 continue
