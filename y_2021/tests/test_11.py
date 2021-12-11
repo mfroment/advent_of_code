@@ -1,8 +1,8 @@
 from y_2021.d_11 import *
 
 input_values_1 = parse_input(__file__, '1')
-input_values_1_1 = parse_input(__file__, '1.1')
-input_values_1_2 = parse_input(__file__, '1.2')
+input_values_1_1 = parse_input(__file__, '1_1')
+input_values_1_2 = parse_input(__file__, '1_2')
 input_values_2 = parse_input(__file__, '2')
 
 

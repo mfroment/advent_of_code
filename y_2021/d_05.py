@@ -5,7 +5,7 @@ import re
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
         for r in f.readlines():
             m = re.search(r'(\d+),(\d+) -> (\d+),(\d+)', r)
             line = ([int(m.group(x)) for x in range(1, 5)])

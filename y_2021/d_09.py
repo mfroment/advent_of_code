@@ -5,7 +5,7 @@ from functools import reduce
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem)) as f:
+    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
         for r in f.readlines():
             if r == '':
                 continue
