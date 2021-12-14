@@ -46,7 +46,7 @@ def fold(dots, direction, pos):
             y = 2 * pos - y
         tdots.add((x, y))
     # rebase
-    minx, miny = (min(d[i] for d in tdots) for i in (0, 1))
+    minx, miny = (min({0} | {d[i] for d in tdots}) for i in (0, 1))
     rdots = set()
     for x, y in tdots:
         rdots.add((-minx + x, -miny + y))
