@@ -16,7 +16,7 @@ def solve_1(values):
         if SUM - v in diffs:
             return v * (SUM - v)
         diffs.add(v)
-    return None
+    assert None  # if no 2-value sum matching target
 
 
 def solve_2(values):
@@ -26,7 +26,7 @@ def solve_2(values):
             if SUM - v - values[j] in diffs:
                 return v * values[j] * (SUM - v - values[j])
             diffs.add(values[j])
-    return None
+    return None  # if no 3-value sum matching target
 
 
 if __name__ == "__main__":
