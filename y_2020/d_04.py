@@ -7,15 +7,14 @@ def parse_input(file=__file__, suffix=None):
     res = []
     with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
         current = dict()
-        for r in f.readlines():
-            if len(r.strip()) == 0:
+        for r in f.readlines() + ['']:  # add terminator
+            if r.strip() == '':
                 res.append(current)
                 current = dict()
                 continue
             for p in r.strip().split(' '):
                 k, v = p.split(':')
                 current[k] = v
-        res.append(current)
         return res
 
 
