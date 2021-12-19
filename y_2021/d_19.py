@@ -18,7 +18,7 @@ def parse_input(file=__file__, suffix=None):
             r = r.strip()
             if r == '':
                 if scanner_id is not None:
-                    scanners[scanner_id] = Scanner(None, None, np.asarray(beacons))
+                    scanners[scanner_id] = Scanner(np.asarray(beacons))
                 scanner_id = None
             else:
                 m = re.search(r'^--- scanner (\d+) ---$', r)
@@ -32,24 +32,24 @@ def parse_input(file=__file__, suffix=None):
 
 # Scanner
 class Scanner:
-    def __init__(self, pos, rot, beacons):
-        self.pos = pos
-        self.rot = rot
-        self.beacons = beacons
+    def __init__(self, beacons):
+        # position and beacons in the absolute frame, initially unknown
+        self.pos = None
+        self.beacons = None
+        # beacons' coordinates in the local frame, rotated in every possible way
+        self.rotated_beacons = [np.asarray(beacons * rot) for rot in Rotations.get()]
 
-    def update(self, pos, rot, beacons=None):
-        # Update position, rotation, coordinates of beacons in the base frame
+    def set_absolute_frame(self, pos, beacons):
         self.pos = pos
-        self.rot = rot
-        if beacons is None:
-            self.beacons = np.asarray(-pos + self.beacons * rot)
-        else:
-            self.beacons = beacons
+        self.beacons = beacons  # only keep the one that is correct
 
 
 # Rotations
 class Rotations:
-    """ The 24 distinct 90-degree based rotations in 3D space """
+    """
+    The 24 distinct 90-degree based rotations in 3D space. By construction, identity is at index 0.
+    """
+
     _rots = None
 
     @classmethod
@@ -68,15 +68,11 @@ class Rotations:
                             cls._rots.append(r)
         return cls._rots
 
-    @classmethod
-    def identity(cls):
-        return cls.get()[0]
-
 
 # Solving = Find position & rotation of all scanners, and aggregate unique beacons.
 def solve(scanners):
     # Initialize with scanner 0 defining the absolute reference frame & first "source" to match "targets" with:
-    scanners[0].update(np.array([0, 0, 0]), Rotations.identity())
+    scanners[0].set_absolute_frame(np.array([0, 0, 0]), scanners[0].rotated_beacons[0])
     all_beacons = setify_list_of_arrays(scanners[0].beacons)
     sources = {0}
     targets = set(scanners.keys()) - {0}
@@ -110,8 +106,7 @@ def setify_list_of_arrays(loa):
 
 def match_and_update(src, tgt):
     src_beacons_set = setify_list_of_arrays(src.beacons)
-    for rot in Rotations.get():  # Apply all rotations to the tgt reference frame until match (or exhaustion)
-        tgt_rot_beacons = np.asarray(tgt.beacons * rot)
+    for tgt_rot_beacons in tgt.rotated_beacons:
         # Pair (almost) all beacons from src & tgt, and check if the resulting [tgt -> src] translation applied to other
         # tgt beacons result into at least a group of MATCH_COUNT matches. If yes, we have a scanner match.
         # When checking translations, we don't need to loop on the last MATCH_COUNT-1 src beacons (because a translation
@@ -122,7 +117,7 @@ def match_and_update(src, tgt):
                 tgt_pos_rot_beacons = np.asarray(-pos + tgt_rot_beacons)
                 inter = src_beacons_set & setify_list_of_arrays(tgt_pos_rot_beacons)
                 if len(inter) >= MATCH_COUNT:
-                    tgt.update(pos, rot, tgt_pos_rot_beacons)
+                    tgt.set_absolute_frame(pos, tgt_pos_rot_beacons)
                     return True
     return False
 
