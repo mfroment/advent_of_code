@@ -1,4 +1,5 @@
 from pathlib import Path
+import time
 
 
 def parse_input(file=__file__, suffix=None):
@@ -25,5 +26,7 @@ if __name__ == "__main__":
 
     print(input_values)
 
-    print("Part 1:", solve_1(input_values))
-    print("Part 2:", solve_2(input_values))
+    start_time = time.time()
+    print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+    start_time = time.time()
+    print(f"Part 2: {str(solve_2(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
