@@ -1,6 +1,6 @@
 import time
 import re
-import aoc_utils as aocu
+import aoc.utils as aocu
 
 
 def parse_input(file=__file__, prefix=None):
