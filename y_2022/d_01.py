@@ -1,22 +1,18 @@
-from pathlib import Path
 import time
+import re
+import aoc_utils as aocu
 
 
-def parse_input(file=__file__, suffix=None):
-    p = Path(file)
+def parse_input(file=__file__, prefix=None):
+    sections = aocu.read_input(file, prefix)
     res = []
-    chunk = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        for r in f.readlines():
-            if r.strip() == '':
-                if len(chunk) > 0:
-                    res.append(chunk)
-                chunk = []
-                continue
-            chunk.append(int(r.strip()))
-        if len(chunk) > 0:
-            res.append(chunk)
-        return res
+    for section in sections:
+        sub_res = []
+        for line in section:
+            tokens = [aocu.s2i(line)]
+            sub_res.append(tokens)
+        res.append(sub_res)
+    return aocu.reduce_input(res)
 
 
 def sorted_sums(values):
@@ -33,6 +29,8 @@ def solve_2(values):
 
 if __name__ == "__main__":
     input_values = parse_input()
+
+    print(input_values)
 
     start_time = time.time()
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
