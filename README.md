@@ -2,9 +2,12 @@
 
 The inputs are for when logged into AoC site with that GitHub account!
 
-### Boiler
+### Setup daily problem
 ```shell
 mkdir y_YYYY
 cd y_YYYY
-../boiler/init.sh 01
+# Boilerplate code
+../boiler/init.sh $(date +%d)
+# Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
+aocd > input/d_$(date +%d).txt
 ```
