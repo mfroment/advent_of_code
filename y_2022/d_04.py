@@ -17,23 +17,19 @@ def parse_input(file=__file__, prefix=None):
 
 
 def is_included(a, b, c, d):
-    return (a <= c and b >= d) or (c <= a and d >= b)
+    return (a - c) * (d - b) >= 0
 
 
 def is_overlapping(a, b, c, d):
-    return not (b < c or a > d)
-
-
-def count_if(values, condition):
-    return sum(1 if condition(v) else 0 for v in values)
+    return b >= c and a <= d
 
 
 def solve_1(values):
-    return count_if(values, lambda v: is_included(*v))
+    return sum(is_included(*v) for v in values)
 
 
 def solve_2(values):
-    return count_if(values, lambda v: is_overlapping(*v))
+    return sum(is_overlapping(*v) for v in values)
 
 
 if __name__ == "__main__":
