@@ -1,16 +1,19 @@
-from pathlib import Path
 import time
+import re
+import aoc_utils as aocu
 
 
-def parse_input(file=__file__, suffix=None):
-    p = Path(file)
+def parse_input(file=__file__, prefix=None):
+    sections = aocu.read_input(file, prefix)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        for r in f.readlines():
-            if r == '':
-                continue
-            res.append([v for v in r.strip().split(' ')])
-        return res
+    for section in sections:
+        sub_res = []
+        for line in section:
+            tokens = re.split(r"\s", line, maxsplit=0)
+            tokens = [aocu.s2i(t) for t in tokens]
+            sub_res.append(tokens)
+        res.append(sub_res)
+    return aocu.reduce_input(res)
 
 
 def round_score_1(p1, p2):

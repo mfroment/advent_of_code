@@ -1,17 +1,19 @@
-import string
-from pathlib import Path
 import time
+import re
+import aoc_utils as aocu
+import string
 
 
-def parse_input(file=__file__, suffix=None):
-    p = Path(file)
+def parse_input(file=__file__, prefix=None):
+    sections = aocu.read_input(file, prefix)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        for r in f.readlines():
-            if r == '':
-                continue
-            res.append([v for v in r.strip()])
-        return res
+    for section in sections:
+        sub_res = []
+        for line in section:
+            tokens = [line]
+            sub_res.append(tokens)
+        res.append(sub_res)
+    return aocu.reduce_input(res)
 
 
 ITEMS = string.ascii_lowercase + string.ascii_uppercase
