@@ -30,8 +30,6 @@ def solve_2(values):
 if __name__ == "__main__":
     input_values = parse_input()
 
-    print(input_values)
-
     start_time = time.time()
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
     start_time = time.time()
