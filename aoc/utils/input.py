@@ -5,8 +5,7 @@ def read_input(file, suffix=None):
     sections = []
     section = []
     with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        for line in f.readlines():
-            line = line.strip()
+        for line in f.read().splitlines():
             if line == '':
                 if len(section) > 0:
                     sections.append(section)
