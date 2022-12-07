@@ -13,7 +13,6 @@ def parse_input(file=__file__, prefix=None):
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)
-    # if not blocks of inputs
     return aocu.reduce_input(res)
 
 

@@ -15,7 +15,7 @@ def parse_input(file=__file__, prefix=None):
             sub_res.append(tokens)
         res.append(sub_res)
     # if not blocks of inputs
-    return res[0] if len(res) == 1 else res
+    return aocu.reduce_input(res)
 
 
 def solve_1(values):
