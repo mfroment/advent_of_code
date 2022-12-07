@@ -61,15 +61,12 @@ def compute_sizes(values):
 
 
 def solve_1(recursive_sizes):
-    return sum(s if s <= 100000 else 0 for s in recursive_sizes.values())
+    return sum(s for s in recursive_sizes.values() if s <= 100000 )
 
 
 def solve_2(recursive_sizes):
-    used_space = recursive_sizes["/"]
-    deletion_target = used_space - 40000000
-    for rs in sorted(recursive_sizes.values()):
-        if rs >= deletion_target:
-            return rs
+    deletion_target = recursive_sizes["/"] - 40000000
+    return min(s for s in recursive_sizes.values() if s >= deletion_target)
 
 
 if __name__ == "__main__":
