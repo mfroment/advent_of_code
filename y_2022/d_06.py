@@ -4,7 +4,7 @@ import aoc.utils as aocu
 
 def parse_input(file=__file__, prefix=None):
     sections = aocu.read_input(file, prefix)
-    return sections[0][0]
+    return aocu.reduce_input(sections)
 
 
 def solve(values, length):
