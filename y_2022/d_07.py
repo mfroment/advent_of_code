@@ -57,11 +57,11 @@ def compute_sizes(values):
                 recursive_size += subsize
         dir_recursive_sizes[dir] = recursive_size
 
-    return dir_sizes, dir_recursive_sizes
+    return dir_recursive_sizes
 
 
-def solve_1(sizes):
-    return sum(s if s <= 100000 else 0 for s in sizes.values())
+def solve_1(recursive_sizes):
+    return sum(s if s <= 100000 else 0 for s in recursive_sizes.values())
 
 
 def solve_2(recursive_sizes):
@@ -75,9 +75,9 @@ def solve_2(recursive_sizes):
 if __name__ == "__main__":
     input_values = parse_input()
 
-    sizes, recursive_sizes = compute_sizes(input_values)
+    recursive_sizes = compute_sizes(input_values)
 
     start_time = time.time()
-    print(f"Part 1: {str(solve_1(sizes)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+    print(f"Part 1: {str(solve_1(recursive_sizes)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
     start_time = time.time()
     print(f"Part 2: {str(solve_2(recursive_sizes)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
