@@ -12,5 +12,5 @@ cd y_YYYY
 # Boilerplate code
 ../boiler/init.sh $(date +%d)
 # Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
-aocd > input/d_$(date +%d).txt
+poetry run aocd > input/d_$(date +%d).txt
 ```
