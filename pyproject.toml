@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Maxime Froment <mfroment99@gmail.com>"]
 readme = "README.md"
-packages = [{include = "aoc"},{include="y_2019"},{include="y_2020"},{include="y_2021"},{include="y_2022"}]
+packages = [{ include = "aoc" }, { include = "y_2019" }, { include = "y_2020" }, { include = "y_2021" }, { include = "y_2022" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
