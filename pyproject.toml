@@ -9,6 +9,7 @@ packages = [{include = "aoc"},{include="y_2019"},{include="y_2020"},{include="y_
 [tool.poetry.dependencies]
 python = "^3.11"
 numpy = "^1.23.5"
+advent-of-code-data = "^1.3.2"
 
 
 [tool.poetry.group.dev.dependencies]
