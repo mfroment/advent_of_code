@@ -10,7 +10,6 @@ def parse_input(file=__file__, prefix=None):
         sub_res = []
         for line in section:
             tokens = re.split(r",|-|\s+", line, maxsplit=0)
-            # tokens = re.search(r"^(.+)-(.+)-(.+)-(.+)$", r).groups()
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)
@@ -35,26 +34,17 @@ def solve_for_length(values, rope_length):
     rope = [(0, 0) for _ in range(0, rope_length)]
     visited = {(0, 0)}
     for d, m in values:
-        dd = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}[d]
+        hd = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}[d]
         for mm in range(0, m):
-            rope[0] = pos_add(rope[0], dd)
+            rope[0] = pos_add(rope[0], hd)
             for i in range(1, len(rope)):
+                # diff between head node and tail node, in [-2, 2] * [-2, 2]
                 dx, dy = pos_diff(rope[i], rope[i - 1])
-                move = False
-                if dx > 1:
-                    dx = 1
-                    move = True
-                elif dx < -1:
-                    dx = -1
-                    move = True
-                if dy > 1:
-                    dy = 1
-                    move = True
-                elif dy < -1:
-                    dy = -1
-                    move = True
-                if move:
-                    rope[i] = pos_add(rope[i], (dx, dy))
+                # if either is 2 in absolute value, then tail moves by 1 unit in the non-0 directions of this diff
+                mx = max(min(dx, 1), -1)
+                my = max(min(dy, 1), -1)
+                if (dx, dy) != (mx, my):
+                    rope[i] = pos_add(rope[i], (mx, my))
             visited.add(rope[-1])
     return len(visited)
 
@@ -69,8 +59,6 @@ def solve_2(values):
 
 if __name__ == "__main__":
     input_values = parse_input()
-
-    print(input_values)
 
     start_time = time.time()
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
