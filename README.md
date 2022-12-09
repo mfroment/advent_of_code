@@ -2,6 +2,9 @@
 
 The inputs are for when logged into AoC site with that GitHub account!
 
+### Setup poetry environment
+poetry install
+
 ### Setup daily problem
 ```shell
 mkdir y_YYYY
