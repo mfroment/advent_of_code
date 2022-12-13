@@ -14,3 +14,9 @@ cd y_YYYY
 # Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
 poetry run aocd > input/d_$(date +%d).txt
 ```
+
+
+### Power tools
+- Graphs: `networkx`
+- Input conversions: `eval` (unsafe), `ast.literal_eval` (safer)
+- Sort: `functools.cmp_to_key` to use custom comparator: `[...].sort(key=cmp_to_key(my_cmp))`

@@ -56,7 +56,7 @@ def solve_1(packet_pairs):
 def solve_2(packet_pairs):
     packets = [packet for pair in packet_pairs for packet in pair]
     packets.extend([[[2]], [[6]]])
-    packets.sort(key=cmp_to_key(lambda a, b: packet_cmp(a, b)))
+    packets.sort(key=cmp_to_key(packet_cmp))
     return (packets.index([[2]]) + 1) * (packets.index([[6]]) + 1)
 
 
