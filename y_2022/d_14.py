@@ -41,7 +41,7 @@ def solve(values):
     grid = make_grid(values)
     void = max(y for (x, y) in grid)
     for x in range(0, 1000):
-        grid.add((x, void + 2))  # brute forcing her
+        grid.add((x, void + 2))  # brute forcing here
     keep_flowing = True
     grain_count = 0
     grain_void_count = None
@@ -70,9 +70,11 @@ def solve(values):
 if __name__ == "__main__":
     input_values = parse_input()
 
+    start_time = time.time()
     solve_1, solve_2 = solve(input_values)
+    solve_duration = time.time() - start_time
 
     start_time = time.time()
-    print(f"Part 1: {str(solve_1):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+    print(f"Part 1: {str(solve_1):<30}{'(':>30}{solve_duration:.3f}s)")
     start_time = time.time()
-    print(f"Part 2: {str(solve_2):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+    print(f"Part 2: {str(solve_2):<30}{'(':>30}{solve_duration:.3f}s)")
