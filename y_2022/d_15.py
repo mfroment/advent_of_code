@@ -17,8 +17,12 @@ def parse_input(file=__file__, prefix=None):
     return aocu.reduce_input(res)  # dimensionality reduction
 
 
+def md(x, y, xx, yy):
+    return abs(x - xx) + abs(y - yy)
+
+
 def covered_hrange(sx, sy, bx, by, ty):
-    d = abs(sx - bx) + abs(sy - by)
+    d = md(sx, sy, bx, by)
     if 0 <= abs(sy - ty) <= d:
         dd = d - abs(sy - ty)
         return [sx - dd, sx + dd]
@@ -57,7 +61,8 @@ def intersect_one_interval_to_many_intervals(one, intervals):
     return res
 
 
-def solve_1_naive(values, ty):
+# Bad space complexity
+def solve_1_set(values, ty):
     excluded = set()
     for sx, sy, bx, by in values:
         excluded |= range_to_set(covered_hrange(sx, sy, bx, by, ty))
@@ -67,7 +72,7 @@ def solve_1_naive(values, ty):
     return len(excluded)
 
 
-def solve_1_faster(values, ty):
+def solve_1_interval_merge(values, ty):
     covered = []
     beacons = set()
     for sx, sy, bx, by in values:
@@ -82,10 +87,11 @@ def solve_1_faster(values, ty):
     return excluded_count
 
 
-solve_1 = lambda values: solve_1_faster(values, 2000000)
+solve_1 = lambda values: solve_1_interval_merge(values, 2000000)
 
 
-def solve_2_slow(values, tsx, tex, tsy, tey):
+# Bad time complexity
+def solve_2_interval_merge(values, tsx, tex, tsy, tey):
     for tty in range(tsy, tey + 1):
         covered = []
         for sx, sy, bx, by in values:
@@ -97,12 +103,67 @@ def solve_2_slow(values, tsx, tex, tsy, tey):
             return 4000000 * ttx + tty
     return None
 
-solve_2 = lambda values: solve_2_slow(values, 0, 4000000, 0, 4000000)
+
+def solve_2_losange_boundaries(values, tsx, tex, tsy, tey):
+    # Since there is only 1 solution, it must lie at the intersection of
+    # 2 lines that are defined by the 1-width gap existing between 2
+    # sensor "exclusion losanges".
+    # First we find all such lines (resp. slash lines = / , backslash
+    # lines = \ ; marked by the value of x at their intersection with y = 0),
+    # Then the intersections of all slashlines with all backslash lines.
+    # Then the intersections that exist in the provided target area.
+    # Then the intersections that are outside all sensors' exclusion areas.
+    # (there should be exactly one)
+
+    # For each beacon, record the x value at y=0 of the leftmost and
+    # rightmost slash & backlash lines (pen & paper & simple maths):
+    beacon_slash_lines = []
+    beacon_backslash_lines = []
+    for sx, sy, bx, by in values:
+        d = md(sx, sy, bx, by)
+        beacon_slash_lines.append([sx + sy - d - 1, sx + sy + d + 1])
+        beacon_backslash_lines.append([sx - sy - d - 1, sx - sy + d + 1])
+    # Now for each pair of sensors, if the leftmost slashline of one sensor
+    # matches the rightmost slashline of the other sensor, keep it (check both cases).
+    # Ex:   \ <--- a candidate backslash line
+    #      /\\ /\
+    #     /  \\\/
+    #     \  /\\
+    #      \/  \\
+    # Then do the same for backslash lines.
+    slash_lines, backslash_lines = set(), set()
+    for beacon_slanted_lines, slanted_lines in (
+            (beacon_slash_lines, slash_lines),
+            (beacon_backslash_lines, backslash_lines)
+    ):
+        for i, (x1, x2) in enumerate(beacon_slanted_lines):
+            for xx1, xx2 in beacon_slanted_lines[i + 1:]:
+                if x1 == xx2:
+                    slanted_lines.add(x1)
+                if x2 == xx1:
+                    slanted_lines.add(x2)
+    # Compute all intersections:
+    intersections = set()
+    for sl_x in slash_lines:
+        for bsl_x in backslash_lines:
+            # integer lines where x's parity is different do not intersect
+            if (sl_x + bsl_x) % 2 == 0:
+                intersections.add(((sl_x + bsl_x) // 2, (sl_x - bsl_x) // 2))
+    # Only keep intersections not in the target area
+    intersections = {(x, y) for (x, y) in intersections if tsx <= x <= tex and tsy <= y <= tey}
+    # Only keep intersections not in any sensor's exclusion losange
+    # (there should be one and only one)
+    intersections = {(x, y) for (x, y) in intersections if
+                     all(md(sx, sy, x, y) > md(sx, sy, bx, by) for sx, sy, bx, by in values)}
+    assert (len(intersections) == 1)
+    (x, y) = intersections.pop()
+    return 4000000 * x + y
+
+
+solve_2 = lambda values: solve_2_losange_boundaries(values, 0, 4000000, 0, 4000000)
 
 if __name__ == "__main__":
     input_values = parse_input()
-
-    print(input_values)
 
     start_time = time.time()
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
