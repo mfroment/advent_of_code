@@ -10,7 +10,7 @@ def parse_input(file=__file__, prefix=None):
         sub_res = []
         for line in section:
             tokens = re.split(r",|-|\s+", line, maxsplit=0)
-            # tokens = re.search(r"^(.+)-(.+)-(.+)-(.+)$", r).groups()
+            # tokens = re.search(r"^(.+)-(.+)-(.+)-(.+)$", line).groups()
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)
@@ -25,7 +25,7 @@ def solve_2(values):
     return None
 
 
-if __name__ == "__main__":
+def main():
     input_values = parse_input()
 
     print(input_values)
@@ -34,3 +34,7 @@ if __name__ == "__main__":
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
     start_time = time.time()
     print(f"Part 2: {str(solve_2(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+
+
+if __name__ == "__main__":
+    main()
