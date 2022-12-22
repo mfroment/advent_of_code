@@ -123,13 +123,13 @@ def solve(raw_grid, moves, make_grid):
     nodes = make_grid(raw_grid)
     j = 0
     i = min(i for (i, j) in nodes if j == 0)
-    p, dir = (i, j), R
+    p, facing = (i, j), R
     for m in moves:
-        # print(p, dir, m)
-        p, dir = update_pos(p, dir, m, nodes)
-    # print(p, dir)
+        # print(p, facing, m)
+        p, facing = update_pos(p, facing, m, nodes)
+    # print(p, facing)
     i, j = p
-    return 1000 * (j + 1) + 4 * (i + 1) + FACING_VALUE[dir]
+    return 1000 * (j + 1) + 4 * (i + 1) + FACING_VALUE[facing]
 
 
 def solve_1(raw_grid, moves):
