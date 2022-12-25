@@ -21,10 +21,7 @@ REVERSE_SNAFU = {
 
 def parse_input(file=__file__, prefix=None):
     sections = aocu.read_input(file, prefix)
-    res = []
-    for line in sections[0]:
-        res.append([t for t in line])
-    return res
+    return sections[0]
 
 
 def sna_2_dec(sna):
@@ -54,8 +51,6 @@ def solve_2(values):
 
 def main():
     input_values = parse_input()
-
-    print(input_values)
 
     start_time = time.time()
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
