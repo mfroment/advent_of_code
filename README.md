@@ -9,6 +9,8 @@ poetry install
 ```shell
 mkdir y_YYYY
 cd y_YYYY
+# Enter venv
+poetry shell
 # Boilerplate code
 ../boiler/init.sh $(date +%d)
 # Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
