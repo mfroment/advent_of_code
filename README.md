@@ -14,7 +14,7 @@ poetry shell
 # Boilerplate code
 ../boiler/init.sh $(date +%d)
 # Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
-poetry run aocd > input/d_$(date +%d).txt
+aocd > input/d_$(date +%d).txt
 ```
 
 
