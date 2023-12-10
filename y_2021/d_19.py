@@ -37,7 +37,7 @@ class Scanner:
         self.pos = None
         self.beacons = None
         # beacons' coordinates in the local frame, rotated in every possible way
-        self.rotated_beacons = [np.asarray(beacons * rot) for rot in Rotations.get()]
+        self.rotated_beacons = [np.asarray(beacons @ rot) for rot in Rotations.get()]
 
     def set_absolute_frame(self, pos, beacons):
         self.pos = pos
@@ -56,13 +56,13 @@ class Rotations:
     def get(cls):
         if cls._rots is None:
             cls._rots = []
-            rz = np.matrix([[0, -1, 0], [1, 0, 0], [0, 0, 1]])
-            rx = np.matrix([[1, 0, 0], [0, 0, -1], [0, 1, 0]])
-            ry = np.matrix([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
+            rz = np.array([[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+            rx = np.array([[1, 0, 0], [0, 0, -1], [0, 1, 0]])
+            ry = np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
             for i in range(4):
                 for j in range(4):
                     for k in range(4):
-                        r = (np.linalg.matrix_power(rx, i) * np.linalg.matrix_power(ry, j) *
+                        r = (np.linalg.matrix_power(rx, i) @ np.linalg.matrix_power(ry, j) @
                              np.linalg.matrix_power(rz, k)).astype(int)
                         if not any(np.array_equal(re, r) for re in cls._rots):
                             cls._rots.append(r)
