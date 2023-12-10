@@ -2,9 +2,9 @@ import time
 import aoc.utils as aocu
 
 
-def parse_input(file=__file__, prefix=None):
+def parse_input(file=__file__, suffix=None):
     res = []
-    for c in aocu.reduce_input(aocu.read_input(file, prefix)):
+    for c in aocu.reduce_input(aocu.read_input(file, suffix)):
         if c == '>':
             res.append((1, 0))
         else:

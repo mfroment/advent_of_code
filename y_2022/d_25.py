@@ -19,8 +19,8 @@ REVERSE_SNAFU = {
 }
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     return sections[0]
 
 

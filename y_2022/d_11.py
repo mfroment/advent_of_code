@@ -29,8 +29,8 @@ class Monkey:
         self.items.append(item)
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     monkeys = []
     operation_strings = []
     for i, section in enumerate(sections):

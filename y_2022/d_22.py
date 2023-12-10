@@ -6,8 +6,8 @@ from typing import Dict, Tuple
 import aoc.utils as aocu
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     raw_grid = []
     for line in sections[0]:
         raw_grid.append(line)

@@ -4,8 +4,8 @@ import aoc.utils as aocu
 import copy
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
 
     n_pos = aocu.s2i(re.sub(r"^.*\s(\S+)\s*$", r"\1", sections[0][-1]))
     positions = {k: [] for k in range(1, n_pos + 1)}

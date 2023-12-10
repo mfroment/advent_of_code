@@ -6,8 +6,8 @@ from itertools import product
 import aoc.utils as aocu
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     res = set()
     for line in sections[0]:
         tokens = re.split(r",", line, maxsplit=0)

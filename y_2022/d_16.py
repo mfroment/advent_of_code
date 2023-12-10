@@ -6,8 +6,8 @@ import aoc.utils as aocu
 import networkx as nx
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     tunnels = dict()
     flows = dict()
     for section in sections:

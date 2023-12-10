@@ -5,8 +5,8 @@ import aoc.utils as aocu
 import math
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     res = []
     for section in sections:
         sub_res = []

@@ -2,8 +2,8 @@ import time
 import aoc.utils as aocu
 
 
-def parse_input(file=__file__, prefix=None):
-    sections = aocu.read_input(file, prefix)
+def parse_input(file=__file__, suffix=None):
+    sections = aocu.read_input(file, suffix)
     res = []
     for line in sections[0]:
         res.append(aocu.s2i(line))
