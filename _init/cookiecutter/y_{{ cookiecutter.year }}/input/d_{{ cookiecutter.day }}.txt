@@ -1,0 +1,1 @@
+{{ cookiecutter.puzzle_input }}

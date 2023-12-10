@@ -7,14 +7,20 @@ poetry install
 
 ### Setup daily problem
 ```shell
-mkdir y_YYYY
-cd y_YYYY
-# Enter venv
-poetry shell
-# Boilerplate code
-../boiler/init.sh $(date +%d)
-# Populate input using aocd - https://github.com/wimglenn/advent-of-code-data
-aocd > input/d_$(date +%d).txt
+_init/run.sh   # optional: _init/run.sh [day] [year]
+```
+This generates:
+- `y_<year>/d_<day>.py`
+- `y_<year>/input/d_<day>.txt`
+- `y_<year>/tests/test_<day>.py`
+- `y_<year>/tests/input/d_<day>.py`
+
+Note: this uses []`aocd`](https://github.com/wimglenn/advent-of-code-data) to generate input file, test code and test data. Test files are almost always not directly usable (if only because the example result of part 2 is not known outright).
+
+Run code and tests:
+```shell
+python y_<year>/d_<day>.py
+pytest y_<year>    # alt. y_<year>/tests/test_<day>.py
 ```
 
 
