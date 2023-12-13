@@ -1,6 +1,7 @@
 import time
 import re
 import aoc.utils as aocu
+from functools import cache
 
 
 def parse_input(file=__file__, suffix=None):
@@ -43,8 +44,8 @@ def naive_solve(values):
 
 
 # This is the solution I came up with after work, efficient enough for part 2
-SPRING_BREAKAGES = dict()
-
+# (EDIT: slightly modified from the original version, to use the cache decorator instead of a dict for memoization)
+@cache
 def count_spring_breakages(spring, breakage):
     spring = spring.strip(".") 
 
@@ -56,13 +57,8 @@ def count_spring_breakages(spring, breakage):
     if len(spring) == 0:
         return 0
 
-    if spring in SPRING_BREAKAGES and breakage in SPRING_BREAKAGES[spring]:
-        return SPRING_BREAKAGES[spring][breakage]
-
-    SPRING_BREAKAGES.setdefault(spring, dict())
     if spring[0] == "?":
         nb = count_spring_breakages(spring[1:], breakage) + count_spring_breakages("#" + spring[1:], breakage)
-        SPRING_BREAKAGES[spring][breakage] = nb
         return nb
 
     assert spring[0] == "#"  # because we stripped "." / checked for leading "?"
@@ -70,10 +66,8 @@ def count_spring_breakages(spring, breakage):
     if re.match(r"^#[#?]{" + str(b-1) + r"}(\.|\?|$)", spring):
         ns = spring[(b+1):]
         nb = count_spring_breakages(ns, bs)
-        SPRING_BREAKAGES[spring][breakage] = nb
         return nb
     else:
-        SPRING_BREAKAGES[spring][breakage] = 0
         return 0
 
 
