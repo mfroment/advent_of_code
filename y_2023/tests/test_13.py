@@ -9,4 +9,4 @@ def test_1():
 
 
 def test_2():
-    assert solve_2(input_values) == aocu.s2i('-')
+    assert solve_2(input_values) == aocu.s2i('400')
