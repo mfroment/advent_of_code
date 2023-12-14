@@ -32,7 +32,7 @@ EXAMPLE_INPUT=$(echo "$EXAMPLE" | perl -e '$is_data = 0; while (<>) { if (/^-{31
 # Never overwrite tha main py file:
 MAIN_PY_FILE="$OUTPUT_DIR/y_$YEAR/d_$DAY.py"
 TEMP_PY_FILE="$OUTPUT_DIR/y_$YEAR/d_$DAY.py.temp"
-INPUT_FILE="$OUTPUT_DIR/y_$YEAR/d_$DAY.txt"
+INPUT_FILE="$OUTPUT_DIR/y_$YEAR/input/d_$DAY.txt"
 
 # Check if the main Python file exists and rename it temporarily if it does
 if [ -f "$MAIN_PY_FILE" ]; then
@@ -48,5 +48,5 @@ if [ -f "$TEMP_PY_FILE" ]; then
     mv "$TEMP_PY_FILE" "$MAIN_PY_FILE"
 fi
 
-code "$MAIN_PY_FILE"
-code "$INPUT_FILE"
+code "$INPUT_FILE" "$MAIN_PY_FILE"
+code --goto "${MAIN_PY_FILE}:11:1"
