@@ -15,7 +15,7 @@ This generates:
 - `y_<year>/tests/test_<day>.py`
 - `y_<year>/tests/input/d_<day>.py`
 
-Note: this uses []`aocd`](https://github.com/wimglenn/advent-of-code-data) to generate input file, test code and test data. Test files are almost always not directly usable (if only because the example result of part 2 is not known outright).
+Note: this uses [`aocd`](https://github.com/wimglenn/advent-of-code-data) to generate input file, test code and test data (usually ok for part 1, usually requires edits for part 2 as the example output is not known outright).
 
 Run code and tests:
 ```shell
