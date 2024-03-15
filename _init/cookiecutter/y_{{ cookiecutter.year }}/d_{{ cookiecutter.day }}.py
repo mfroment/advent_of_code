@@ -1,5 +1,6 @@
-import time
 import re
+import time
+
 import aoc.utils as aocu
 
 

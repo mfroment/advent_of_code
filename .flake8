@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 120
+extend-ignore = E203, E501
+exclude = src/alembic/versions/*
+per-file-ignores =
+    y_*/test_*.py:F403,F405

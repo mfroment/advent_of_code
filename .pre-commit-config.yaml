@@ -1,0 +1,57 @@
+exclude: /data/
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks.git
+  rev: v4.5.0
+  hooks:
+    - id: check-json
+      name: Check JSON Syntax
+
+    - id: check-yaml
+      name: Check YAML Syntax
+      args: ["--unsafe", "--allow-multiple-documents"]
+      exclude: "^_init"
+
+    - id: check-executables-have-shebangs
+      name: Check Executable Shebangs
+
+    - id: end-of-file-fixer
+      name: Check File Endings
+      exclude: "^(VERSION|CHANGELOG|AUTHORS|.tours)"
+
+    - id: mixed-line-ending
+      name: Check Line Endings
+
+    - id: trailing-whitespace
+      name: Check Trailing Whitespace
+
+- repo: https://github.com/psf/black
+  rev: 24.2.0
+  hooks:
+    - id: black
+      name: Check Python Syntax (black)
+      args:
+        - --line-length=120
+      exclude: "^_init"
+
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+    - id: isort
+      name: isort (python)
+      args: ["--profile", "black"]
+      exclude: "^_init"
+
+- repo: https://github.com/pycqa/flake8
+  rev: 7.0.0
+  hooks:
+    - id: flake8
+      exclude: "^_init"
+
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.9.0
+  hooks:
+    - id: mypy
+      args: [--follow-imports, silent, --ignore-missing-imports, --explicit-package-bases]
+      additional_dependencies: ['types-requests']
+      exclude: "^_init"

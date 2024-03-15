@@ -1,4 +1,4 @@
-from y_{{ cookiecutter.year }}.d_{{ cookiecutter.day }} import *
+from y_{{cookiecutter.year}}.d_{{cookiecutter.day}} import *
 import aoc.utils as aocu
 
 input_values = parse_input(__file__)

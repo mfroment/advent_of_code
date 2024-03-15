@@ -13,6 +13,7 @@ advent-of-code-data = "*"
 networkx = "*"
 indexed = "*"
 sympy = "*"
+z3-solver = "^4.12.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
