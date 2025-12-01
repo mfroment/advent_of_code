@@ -1,11 +1,12 @@
 #!/bin/bash
 
-SCRIPT_PATH="$(realpath $0)"
-SCRIPT_DIR="$(dirname $SCRIPT_PATH)"
+SCRIPT_PATH="$(realpath "$0")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 PROJECT_DIR="$SCRIPT_DIR/.."
 TEMPLATE_DIR="$SCRIPT_DIR/cookiecutter"
 OUTPUT_DIR="$PROJECT_DIR"
-
+# set env variable for aocd session
+export AOC_SESSION=$(cat "$PROJECT_DIR"/.aoc_session)
 
 # Default to current day and year if no arguments are provided
 DAY=$(TZ="America/New_York" date +%d)
@@ -39,8 +40,8 @@ if [ -f "$MAIN_PY_FILE" ]; then
     mv "$MAIN_PY_FILE" "$TEMP_PY_FILE"
 fi
 
-cookiecutter --no-input --overwrite-if-exists --output-dir $OUTPUT_DIR \
-    $TEMPLATE_DIR \
+cookiecutter --no-input --overwrite-if-exists --output-dir "$OUTPUT_DIR" \
+    "$TEMPLATE_DIR" \
     year=$YEAR day=$DAY puzzle_input="$PUZZLE_INPUT" example_input="$EXAMPLE_INPUT" example_answer_a="$EXAMPLE_ANSWER_A" example_answer_b="$EXAMPLE_ANSWER_B" \
 
 # Check if the temporary file exists and move it back
