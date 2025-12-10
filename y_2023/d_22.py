@@ -33,7 +33,11 @@ def resolve_initial_fall(bricks):
                 elif surface[(x, y)][2][1] > contact_z:
                     contacts = {surface[(x, y)]}
                     contact_z = surface[(x, y)][2][1]
-        fallen_brick = (brick[0], brick[1], (contact_z + 1, contact_z + 1 + brick[2][1] - brick[2][0]))
+        fallen_brick = (
+            brick[0],
+            brick[1],
+            (contact_z + 1, contact_z + 1 + brick[2][1] - brick[2][0]),
+        )
         structure[fallen_brick] = contacts
         for x, y in itertools.product(range(brick[0][0], brick[0][1] + 1), range(brick[1][0], brick[1][1] + 1)):
             surface[(x, y)] = fallen_brick

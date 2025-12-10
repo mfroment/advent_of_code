@@ -18,7 +18,14 @@ def parse_input(file=__file__, suffix=None):
 
 def get_neighbours(c):
     x, y, z = c
-    return {(x + 1, y, z), (x - 1, y, z), (x, y + 1, z), (x, y - 1, z), (x, y, z + 1), (x, y, z - 1)}
+    return {
+        (x + 1, y, z),
+        (x - 1, y, z),
+        (x, y + 1, z),
+        (x, y - 1, z),
+        (x, y, z + 1),
+        (x, y, z - 1),
+    }
 
 
 def get_surface(c, cublets):

@@ -34,7 +34,7 @@ def solve_for_length(values, rope_length):
     rope = [(0, 0) for _ in range(0, rope_length)]
     visited = {(0, 0)}
     for d, m in values:
-        hd = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}[d]
+        hd = {"R": (1, 0), "L": (-1, 0), "U": (0, 1), "D": (0, -1)}[d]
         for mm in range(0, m):
             rope[0] = pos_add(rope[0], hd)
             for i in range(1, len(rope)):

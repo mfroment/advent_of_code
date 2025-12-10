@@ -5,10 +5,10 @@ import re
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
         for r in f.readlines():
-            m = re.search(r'(\d+),(\d+) -> (\d+),(\d+)', r)
-            line = ([int(m.group(x)) for x in range(1, 5)])
+            m = re.search(r"(\d+),(\d+) -> (\d+),(\d+)", r)
+            line = [int(m.group(x)) for x in range(1, 5)]
             res.append(line)
     return res
 
@@ -46,7 +46,11 @@ def solve_1(lines):
 
 
 def solve_2(lines):
-    return solve(lines, lambda l: l[0] == l[2] or l[1] == l[3] or abs(l[2] - l[0]) == abs(l[3] - l[1]), 2)
+    return solve(
+        lines,
+        lambda l: l[0] == l[2] or l[1] == l[3] or abs(l[2] - l[0]) == abs(l[3] - l[1]),
+        2,
+    )
 
 
 if __name__ == "__main__":

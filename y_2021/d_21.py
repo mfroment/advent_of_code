@@ -3,7 +3,7 @@ from collections import Counter
 
 
 def roll_one_100_dice():
-    roll_one_100_dice.res = getattr(roll_one_100_dice, 'res', 0) % 100 + 1
+    roll_one_100_dice.res = getattr(roll_one_100_dice, "res", 0) % 100 + 1
     return roll_one_100_dice.res
 
 
@@ -25,8 +25,11 @@ def solve_1(p1, p2):
 
 def roll_three_dirac_dices():
     # Pseudo constant (compute only once)
-    return getattr(roll_three_dirac_dices, 'res',
-                   Counter(d1 + d2 + d3 for d1, d2, d3 in product((1, 2, 3), (1, 2, 3), (1, 2, 3))))
+    return getattr(
+        roll_three_dirac_dices,
+        "res",
+        Counter(d1 + d2 + d3 for d1, d2, d3 in product((1, 2, 3), (1, 2, 3), (1, 2, 3))),
+    )
 
 
 def play_quantum_game(pos, score=0, depth=0):

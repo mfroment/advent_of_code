@@ -19,9 +19,9 @@ def parse_input(file=__file__, suffix=None):
 
 def count_local_rolls(grid, x, y):
     res = 0
-    for xn in range(max(x-1,0),min(x+2,len(grid[0]))):
-        for yn in range(max(y-1,0),min(y+2,len(grid))):
-            if grid[yn][xn] == '@':
+    for xn in range(max(x - 1, 0), min(x + 2, len(grid[0]))):
+        for yn in range(max(y - 1, 0), min(y + 2, len(grid))):
+            if grid[yn][xn] == "@":
                 res += 1
     return res
 
@@ -30,9 +30,9 @@ def solve_1(grid):
     res = 0
     for x in range(len(grid[0])):
         for y in range(len(grid)):
-            if grid[y][x]=='@':
+            if grid[y][x] == "@":
                 if count_local_rolls(grid, x, y) <= 4:
-                    res +=1
+                    res += 1
     return res
 
 
@@ -43,15 +43,15 @@ def solve_2(inp_grid):
         removable = set()
         for x in range(len(grid[0])):
             for y in range(len(grid)):
-                if grid[y][x]=='@':
+                if grid[y][x] == "@":
                     if count_local_rolls(grid, x, y) <= 4:
-                        removable.add((x,y))
+                        removable.add((x, y))
         if len(removable) == 0:
             break
         else:
             removed += len(removable)
             for x, y in removable:
-                grid[y][x]='x'
+                grid[y][x] = "x"
     return removed
 
 

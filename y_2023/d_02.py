@@ -24,10 +24,12 @@ def parse_input(file=__file__, suffix=None):
 def solve_1(values):
     res = 0
     for game_id, game_trials in values.items():
-        if all([game_det.get("red",0) <=12 
-                and game_det.get("green",0) <=13 
-                and game_det.get("blue",0) <= 14
-                for game_det in game_trials]):
+        if all(
+            [
+                game_det.get("red", 0) <= 12 and game_det.get("green", 0) <= 13 and game_det.get("blue", 0) <= 14
+                for game_det in game_trials
+            ]
+        ):
             res += game_id
     return res
 
@@ -37,13 +39,12 @@ def solve_2(values):
     for game_trials in values.values():
         r, g, b = 0, 0, 0
         for game_det in game_trials:
-            r = max(game_det.get("red",0), r)
-            g = max(game_det.get("green",0), g)
-            b = max(game_det.get("blue",0), b)
+            r = max(game_det.get("red", 0), r)
+            g = max(game_det.get("green", 0), g)
+            b = max(game_det.get("blue", 0), b)
         p = r * g * b
         res += p
     return res
-
 
 
 def main():

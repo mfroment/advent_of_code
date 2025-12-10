@@ -12,7 +12,7 @@ def parse_input(file=__file__, suffix=None):
         for line in section:
             tokens = re.split(r",|-|\s+", line, maxsplit=0)
             # tokens = re.search(r"^(.+)-(.+)-(.+)-(.+)$", line).groups()
-            tokens = [aocu.s2i(('+' if t[0]=='R' else '-')+t[1:]) for t in tokens]
+            tokens = [aocu.s2i(("+" if t[0] == "R" else "-") + t[1:]) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)
     return aocu.reduce_input(res)  # dimensionality reduction

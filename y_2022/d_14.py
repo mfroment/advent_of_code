@@ -23,7 +23,7 @@ def make_grid(values):
         grid.add(row[0])
         for i in range(1, len(row)):
             (a, b), (c, d) = row[i - 1], row[i]
-            assert (a == c or b == d)
+            assert a == c or b == d
             if a == c:
                 if b > d:
                     b, d = d, b

@@ -6,13 +6,13 @@ def parse_input(file=__file__, suffix=None):
     p = Path(file)
     dots = set()
     folds = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            m = re.search(r'(\d+),(\d+)', r.strip())
+            m = re.search(r"(\d+),(\d+)", r.strip())
             if m:
                 dots.add((int(m.group(1)), int(m.group(2))))
                 continue
-            m = re.search(r'fold along (.)=(\d+)', r.strip())
+            m = re.search(r"fold along (.)=(\d+)", r.strip())
             if m:
                 folds.append((m.group(1), int(m.group(2))))
     return dots, folds
@@ -27,10 +27,10 @@ def dot_matrix(dots):
 
 
 def print_matrix(arr):
-    print(' ' + ('-' * len(arr[0])) + ' ')
+    print(" " + ("-" * len(arr[0])) + " ")
     for r in arr:
-        print('|' + ''.join(('*' if v else ' ' for v in r)) + '|')
-    print(' ' + ('-' * len(arr[0])) + ' ')
+        print("|" + "".join(("*" if v else " " for v in r)) + "|")
+    print(" " + ("-" * len(arr[0])) + " ")
     print()
 
 
@@ -38,11 +38,11 @@ def fold(dots, direction, pos):
     # fold
     tdots = set()
     for x, y in dots:
-        if (direction == 'x' and x == pos) or (direction == 'y' and y == pos):
+        if (direction == "x" and x == pos) or (direction == "y" and y == pos):
             continue
-        if direction == 'x' and x > pos:
+        if direction == "x" and x > pos:
             x = 2 * pos - x
-        elif direction == 'y' and y > pos:
+        elif direction == "y" and y > pos:
             y = 2 * pos - y
         tdots.add((x, y))
     # rebase

@@ -17,15 +17,15 @@ def parse_input(file=__file__, suffix=None):
 def pad_grid(values):
     padded = []
     width = len(values[0])
-    padded.append(['.']*(width+2))
+    padded.append(["."] * (width + 2))
     for v in values:
-        padded.append(['.'] + v + ['.'])
-    padded.append(['.']*(width+2))
+        padded.append(["."] + v + ["."])
+    padded.append(["."] * (width + 2))
 
     return padded
 
 
-def get_numbers(values):  
+def get_numbers(values):
     numbers = dict()
     for j, line in enumerate(values):
         # initialize for the line
@@ -39,10 +39,10 @@ def get_numbers(values):
                     nb_value = cell
                 else:
                     # continuation of a number
-                    nb_value = nb_value*10 + cell
+                    nb_value = nb_value * 10 + cell
             elif nb_value is not None:
                 # end of a number
-                numbers[nb_pos]= nb_value
+                numbers[nb_pos] = nb_value
                 nb_pos = None
                 nb_value = None
     return numbers
@@ -53,14 +53,14 @@ def get_number_neighbors(pos, n, values):
     i, j = pos
     neighbors = dict()
     # this revisits the cells occupied by the number itself, but it's ok (skip if int)
-    for nbng_j in (j-1, j, j+1):
-        for nbng_i in range(i-1, i+n_length+1):
+    for nbng_j in (j - 1, j, j + 1):
+        for nbng_i in range(i - 1, i + n_length + 1):
             nbng_value = values[nbng_j][nbng_i]
-            if nbng_value != '.' and not(isinstance(nbng_value, int)):
+            if nbng_value != "." and not (isinstance(nbng_value, int)):
                 neighbors[(nbng_i, nbng_j)] = nbng_value
                 break
     return neighbors
-    
+
 
 def solve_1(values):
     values = pad_grid(values)
@@ -85,10 +85,10 @@ def solve_2(values):
     for nb_pos, nb_value in numbers.items():
         neighbors = get_number_neighbors(nb_pos, nb_value, values)
         for nbng_pos, nbng_value in neighbors.items():
-            if nbng_value == '*':
+            if nbng_value == "*":
                 gears.setdefault(nbng_pos, []).append(nb_value)
 
-    return sum([g[0]*g[1] for g in gears.values() if len(g) == 2])
+    return sum([g[0] * g[1] for g in gears.values() if len(g) == 2])
 
 
 def main():

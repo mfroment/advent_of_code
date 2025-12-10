@@ -5,7 +5,7 @@ import aoc.utils as aocu
 def parse_input(file=__file__, suffix=None):
     res = []
     for c in aocu.reduce_input(aocu.read_input(file, suffix)):
-        if c == '>':
+        if c == ">":
             res.append((1, 0))
         else:
             res.append((-1, 0))
@@ -25,10 +25,10 @@ class Chamber:
         return any(p in self.rocks for p in pos) or any(x == 0 or x == 8 or y == 0 for (x, y) in pos)
 
     def __str__(self):
-        col = [[c for c in '|.......|'] for _ in range(self.height + 1)]
+        col = [[c for c in "|.......|"] for _ in range(self.height + 1)]
         for x, y in self.rocks:
-            col[y][x] = '#'
-        return '\n' + '\n'.join(''.join(c) for c in reversed(col))
+            col[y][x] = "#"
+        return "\n" + "\n".join("".join(c) for c in reversed(col))
 
 
 class ShapedRock:
@@ -37,7 +37,7 @@ class ShapedRock:
         ((4, 4), (3, 5), (4, 5), (5, 5), (4, 6)),
         ((3, 4), (4, 4), (5, 4), (5, 5), (5, 6)),
         ((3, 4), (3, 5), (3, 6), (3, 7)),
-        ((3, 4), (4, 4), (3, 5), (4, 5))
+        ((3, 4), (4, 4), (3, 5), (4, 5)),
     )
 
     def __init__(self, shape_index, height):

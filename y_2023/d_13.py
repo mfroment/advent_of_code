@@ -17,6 +17,7 @@ def parse_input(file=__file__, suffix=None):
 # no time to write proper, clever code today for either part
 # so I just brute forced it
 
+
 def find_vertical_reflections(grid, exclude=None):
     for i in range(1, len(grid[0])):
         match = True

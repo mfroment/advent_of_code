@@ -18,18 +18,18 @@ def parse_input(file=__file__, suffix=None):
 
 def process(instructions):
     x = [1]
-    screen = [' ' for _ in range(0, 240)]
+    screen = [" " for _ in range(0, 240)]
 
     def cycle_update():
         cursor = len(x) - 1
         if x[-1] - 1 <= cursor % 40 <= x[-1] + 1:
-            screen[cursor] = '█'
+            screen[cursor] = "█"
         x.append(x[-1])
 
     for instruction in instructions:
-        if instruction[0] == 'noop':
+        if instruction[0] == "noop":
             cycle_update()
-        elif instruction[0] == 'addx':
+        elif instruction[0] == "addx":
             cycle_update()
             cycle_update()
             x[-1] += instruction[1]
@@ -43,7 +43,7 @@ def solve_1(x):
 
 
 def solve_2(screen):
-    return '\n' + '\n'.join([''.join(screen[i:i + 40]) for i in range(0, 240, 40)])
+    return "\n" + "\n".join(["".join(screen[i : i + 40]) for i in range(0, 240, 40)])
 
 
 if __name__ == "__main__":

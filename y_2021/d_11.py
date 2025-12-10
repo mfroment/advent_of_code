@@ -7,9 +7,9 @@ from functools import reduce
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append([int(v) for v in r.strip()])
         return res

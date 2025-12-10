@@ -5,9 +5,9 @@ import heapq
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append([int(v) for v in r.strip()])
         return res
@@ -35,8 +35,10 @@ class Sweep:
             for i in range(len(values[0])):
                 if i == 0 and j == 0:
                     continue
-                p[j][i] = values[j][i] + min(p[j - 1][i] if j > 0 else float('inf'),
-                                             p[j][i - 1] if i > 0 else float('inf'))
+                p[j][i] = values[j][i] + min(
+                    p[j - 1][i] if j > 0 else float("inf"),
+                    p[j][i - 1] if i > 0 else float("inf"),
+                )
         return p
 
     @staticmethod
@@ -135,17 +137,18 @@ def graphify(values):
     x_size, y_size = len(values[0]), len(values)
 
     def neighbours(i, j):
-        return {(x, y) for (x, y) in {(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)} if
-                0 <= x < x_size and 0 <= y < y_size}
+        return {
+            (x, y) for (x, y) in {(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)} if 0 <= x < x_size and 0 <= y < y_size
+        }
 
     def coord_to_key(i, j):
-        return str(i) + '_' + str(j)
+        return str(i) + "_" + str(j)
 
     g = dict()
     for i in range(len(values[0])):
         for j in range(len(values)):
             i_j = coord_to_key(i, j)
-            for (x, y) in neighbours(i, j):
+            for x, y in neighbours(i, j):
                 x_y = coord_to_key(x, y)
                 g.setdefault(x_y, dict())
                 g[x_y][i_j] = values[j][i]
@@ -185,8 +188,8 @@ class Cleaner:
     @staticmethod
     def solve(values):
         g = graphify(values)
-        p, d = Cleaner.lowest_path(g, '0_0')
-        return d[str(len(values[0]) - 1) + '_' + str(len(values) - 1)]
+        p, d = Cleaner.lowest_path(g, "0_0")
+        return d[str(len(values[0]) - 1) + "_" + str(len(values) - 1)]
 
     @staticmethod
     def solve_1(values):

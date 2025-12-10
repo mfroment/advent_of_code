@@ -4,9 +4,9 @@ from pathlib import Path
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append([v for v in r.strip()])
     return res
@@ -16,35 +16,35 @@ from statistics import median
 
 
 ANTI_PAIRS = {
-    ')': '(',
-    ']': '[',
-    '}': '{',
-    '>': '<',
+    ")": "(",
+    "]": "[",
+    "}": "{",
+    ">": "<",
 }
 
 CORRUPTION = {
-    ')': 3,
-    ']': 57,
-    '}': 1197,
-    '>': 25137,
+    ")": 3,
+    "]": 57,
+    "}": 1197,
+    ">": 25137,
 }
 
 COMPLETION = {
-    '(': 1,
-    '[': 2,
-    '{': 3,
-    '<': 4,
+    "(": 1,
+    "[": 2,
+    "{": 3,
+    "<": 4,
 }
 
 
 def parse(line):
     parsing = []
     for c in line:
-        if c in set('([{<'):
+        if c in set("([{<"):
             parsing.append(c)
         elif c in ANTI_PAIRS:
             if len(parsing) == 0 or ANTI_PAIRS[c] != parsing.pop():
-                return False, c   # corrupted: -> False, corrupted_character
+                return False, c  # corrupted: -> False, corrupted_character
     return True, parsing  # (in)complete: -> True, remaining characters to pair
 
 

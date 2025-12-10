@@ -20,19 +20,20 @@ def parse_input(file=__file__, suffix=None):
 def distance(p, q):
     px, py, pz = p
     qx, qy, qz = q
-    return (px-qx)**2 + (py-qy)**2 + (pz-qz)**2
+    return (px - qx) ** 2 + (py - qy) ** 2 + (pz - qz) ** 2
+
 
 def sorted_pairs(boxes):
     res = []
     for i, p in enumerate(boxes):
-        for q in boxes[i+1:]:
+        for q in boxes[i + 1 :]:
             res.append((p, q, distance(p, q)))
     return sorted(res, key=lambda item: item[2])
 
 
 def solve_1(boxes, stop_at):
     pairs = sorted_pairs(boxes)
-    circuits =  {p: {p} for p in boxes}
+    circuits = {p: {p} for p in boxes}
     n_connections = 0
     for p, q, _ in pairs:
         if q not in circuits[p]:
@@ -42,20 +43,20 @@ def solve_1(boxes, stop_at):
         n_connections += 1
         if n_connections == stop_at:
             break
-    
+
     unique_circuits = set()
     for p in boxes:
         unique_circuits.add(tuple(sorted(list(circuits[p]))))
 
     sizes = sorted([len(uc) for uc in unique_circuits])
 
-    return sizes[-3]*sizes[-2]*sizes[-1]
+    return sizes[-3] * sizes[-2] * sizes[-1]
 
 
 def solve_2(boxes):
     pairs = sorted_pairs(boxes)
     # I just copy pasted the logic from solve_1, the exit cases are different enough that unifying the code is annoying
-    circuits =  {p: {p} for p in boxes}
+    circuits = {p: {p} for p in boxes}
     for p, q, _ in pairs:
         if q not in circuits[p]:
             merged_circuit = circuits[p] | circuits[q]
@@ -63,7 +64,7 @@ def solve_2(boxes):
                 circuits[b] = merged_circuit
             if len(merged_circuit) == len(boxes):
                 break
-    
+
     return p[0] * q[0]
 
 

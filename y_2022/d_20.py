@@ -25,8 +25,8 @@ def mix(values, mixorder):
             new_i = (i + shift - 1) % (len(values) - 1) + 1
         else:  # values[i] <0:
             new_i = (i + shift) % (len(values) - 1)
-        mixorder = mixorder[:i] + mixorder[i + 1:]
-        values = values[:i] + values[i + 1:]
+        mixorder = mixorder[:i] + mixorder[i + 1 :]
+        values = values[:i] + values[i + 1 :]
         values = values[:new_i] + [shift] + values[new_i:]
         mixorder = mixorder[:new_i] + [j] + mixorder[new_i:]
     return values, mixorder

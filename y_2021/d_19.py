@@ -13,20 +13,20 @@ def parse_input(file=__file__, suffix=None):
     scanners = dict()
     scanner_id = None
     beacons = None
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        for r in f.readlines() + ['']:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
+        for r in f.readlines() + [""]:
             r = r.strip()
-            if r == '':
+            if r == "":
                 if scanner_id is not None:
                     scanners[scanner_id] = Scanner(np.asarray(beacons))
                 scanner_id = None
             else:
-                m = re.search(r'^--- scanner (\d+) ---$', r)
+                m = re.search(r"^--- scanner (\d+) ---$", r)
                 if m:
                     scanner_id = int(m.group(1))
                     beacons = []
                 else:  # must be coordinates
-                    beacons.append(ast.literal_eval('[' + r + ']'))
+                    beacons.append(ast.literal_eval("[" + r + "]"))
     return scanners
 
 
@@ -62,8 +62,11 @@ class Rotations:
             for i in range(4):
                 for j in range(4):
                     for k in range(4):
-                        r = (np.linalg.matrix_power(rx, i) @ np.linalg.matrix_power(ry, j) @
-                             np.linalg.matrix_power(rz, k)).astype(int)
+                        r = (
+                            np.linalg.matrix_power(rx, i)
+                            @ np.linalg.matrix_power(ry, j)
+                            @ np.linalg.matrix_power(rz, k)
+                        ).astype(int)
                         if not any(np.array_equal(re, r) for re in cls._rots):
                             cls._rots.append(r)
         return cls._rots
@@ -81,10 +84,12 @@ def solve(scanners):
         assert len(sources) > 0
         # Select a remaining source (and remove it, it will be used only once)
         src_id = sources.pop()
-        if VERBOSE: print('source:', src_id)
+        if VERBOSE:
+            print("source:", src_id)
         matched = set()
         for tgt_id in targets:
-            if VERBOSE: print('  target:', tgt_id)
+            if VERBOSE:
+                print("  target:", tgt_id)
             # Try to match scanners #src_id and #tgt_id
             # If a match is found, add tgt_id to sources,
             # and update its position/rotation/beacons in the scanners[0]'s reference frame
@@ -92,8 +97,10 @@ def solve(scanners):
                 # scanners[tgt_id].update(pos, rot, all_beacons)
                 matched.add(tgt_id)
                 all_beacons |= setify_list_of_arrays(scanners[tgt_id].beacons)
-                if VERBOSE: print('        matched!', len(all_beacons))
-                if VERBOSE: print('    pos', scanners[tgt_id].pos)
+                if VERBOSE:
+                    print("        matched!", len(all_beacons))
+                if VERBOSE:
+                    print("    pos", scanners[tgt_id].pos)
         # Matched targets are removed from targets and added to sources
         targets -= matched
         sources.update(matched)
@@ -111,7 +118,7 @@ def match_and_update(src, tgt):
         # tgt beacons result into at least a group of MATCH_COUNT matches. If yes, we have a scanner match.
         # When checking translations, we don't need to loop on the last MATCH_COUNT-1 src beacons (because a translation
         # leading to a scanner match would also include one of the prior src beacons; and they have already been tried).
-        for src_b in src.beacons[:len(src.beacons) - MATCH_COUNT + 1]:
+        for src_b in src.beacons[: len(src.beacons) - MATCH_COUNT + 1]:
             for tgt_b in tgt_rot_beacons:
                 pos = tgt_b - src_b  # -translation = relative position of tgt scanner in src scanner reference frame
                 tgt_pos_rot_beacons = np.asarray(-pos + tgt_rot_beacons)

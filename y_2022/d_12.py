@@ -28,22 +28,22 @@ def graphify(values):
     lx = len(values[0])
     for y, row in enumerate(values):
         for x, v in enumerate(row):
-            if v == 'S':
+            if v == "S":
                 S = (x, y)
-                v = 'a'
-            if v == 'E':
+                v = "a"
+            if v == "E":
                 E = (x, y)
-                v = 'z'
-            pos[(x, y)] = {'v': v}
+                v = "z"
+            pos[(x, y)] = {"v": v}
     for y, row in enumerate(values):
         for x, v in enumerate(row):
             neighbours = set()
             for xx, yy in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]:
                 # Note: edge direction is flipped, (accessible) destination node -> origin node
                 #   This helps with Part 2 as we want to find shortest paths from all 'a's to E
-                if 0 <= xx < lx and 0 <= yy < ly and height_difference(pos[(x, y)]['v'], pos[(xx, yy)]['v']) >= -1:
+                if 0 <= xx < lx and 0 <= yy < ly and height_difference(pos[(x, y)]["v"], pos[(xx, yy)]["v"]) >= -1:
                     neighbours.add((xx, yy))
-            pos[(x, y)]['n'] = neighbours
+            pos[(x, y)]["n"] = neighbours
     return pos, S, E
 
 
@@ -58,7 +58,7 @@ def dijkstra(pos, S):
         p = min(pending, key=lambda p: distances[p])
         pending.remove(p)
         unvisited.remove(p)
-        for n in pos[p]['n']:
+        for n in pos[p]["n"]:
             if n in unvisited:
                 pending.add(n)
                 if n not in distances or distances[n] > distances[p] + 1:
@@ -75,7 +75,7 @@ def solve_1(values):
 def solve_2(values):
     pos, _, E = graphify(values)
     distances = dijkstra(pos, E)
-    return min(distances[p] for p in distances.keys() if pos[p]['v'] == 'a')
+    return min(distances[p] for p in distances.keys() if pos[p]["v"] == "a")
 
 
 if __name__ == "__main__":

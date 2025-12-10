@@ -7,12 +7,12 @@ import time
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             m = re.search(r"(on|off) x=(.*)\.\.(.*),y=(.*)\.\.(.*),z=(.*)\.\.(.*)", r.strip())
-            res.append([1 if m.group(1) == 'on' else 0] + [int(m.group(i)) for i in range(2, 8)])
+            res.append([1 if m.group(1) == "on" else 0] + [int(m.group(i)) for i in range(2, 8)])
         return res
 
 
@@ -49,9 +49,21 @@ class Cube:
         if ic is None:
             return [self]
         else:
-            xss = [(self.xs[0], ic.xs[0] - 1), (ic.xs[0], ic.xs[1]), (ic.xs[1] + 1, self.xs[1])]
-            yss = [(self.ys[0], ic.ys[0] - 1), (ic.ys[0], ic.ys[1]), (ic.ys[1] + 1, self.ys[1])]
-            zss = [(self.zs[0], ic.zs[0] - 1), (ic.zs[0], ic.zs[1]), (ic.zs[1] + 1, self.zs[1])]
+            xss = [
+                (self.xs[0], ic.xs[0] - 1),
+                (ic.xs[0], ic.xs[1]),
+                (ic.xs[1] + 1, self.xs[1]),
+            ]
+            yss = [
+                (self.ys[0], ic.ys[0] - 1),
+                (ic.ys[0], ic.ys[1]),
+                (ic.ys[1] + 1, self.ys[1]),
+            ]
+            zss = [
+                (self.zs[0], ic.zs[0] - 1),
+                (ic.zs[0], ic.zs[1]),
+                (ic.zs[1] + 1, self.zs[1]),
+            ]
             sub_cs = []
             for i, ess in enumerate(product(xss, yss, zss)):
                 if i == 13:  # the central cuboid is the one that's clipped
@@ -77,7 +89,7 @@ def solve_2(values):
         if s == 0:
             continue
         cubes = [Cube((x0, x1), (y0, y1), (z0, z1))]
-        for j, (_, xx0, xx1, yy0, yy1, zz0, zz1) in enumerate(values[i + 1:]):
+        for j, (_, xx0, xx1, yy0, yy1, zz0, zz1) in enumerate(values[i + 1 :]):
             nc = Cube((xx0, xx1), (yy0, yy1), (zz0, zz1))
             ncubes = []
             for c in cubes:

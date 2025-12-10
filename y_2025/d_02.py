@@ -21,7 +21,7 @@ def parse_input(file=__file__, suffix=None):
 def solve_1(values):
     invalids = set()
     for start, end in values:
-        for v in range(start, end+1):
+        for v in range(start, end + 1):
             length = len(str(v))
             if length % 2 != 0:
                 continue
@@ -33,9 +33,9 @@ def solve_1(values):
 
 @functools.cache
 def divisors(n):
-    assert n>0
+    assert n > 0
     res = [1]
-    for i in range(2,n):
+    for i in range(2, n):
         if n % i == 0:
             res.append(i)
     return res
@@ -44,18 +44,17 @@ def divisors(n):
 def solve_2(values):
     invalids = set()
     for start, end in values:
-        for v in range(start, end+1):
+        for v in range(start, end + 1):
             vs = str(v)
             if len(vs) == 1:  # nice trap... not...
                 continue
             length = len(vs)
             divs = divisors(length)
             for d in divs:
-                if vs == (vs[:d] * (length//d)):
+                if vs == (vs[:d] * (length // d)):
                     invalids.add(v)
                     break
     return sum(invalids)
-
 
 
 def main():

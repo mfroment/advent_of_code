@@ -12,7 +12,10 @@ def parse_input(file=__file__, suffix=None):
     flows = dict()
     for section in sections:
         for line in section:
-            tokens = re.search(r"^Valve (..) has flow rate=(\d+); tunnels? leads? to valves? (.*)$", line).groups()
+            tokens = re.search(
+                r"^Valve (..) has flow rate=(\d+); tunnels? leads? to valves? (.*)$",
+                line,
+            ).groups()
             tokens = [aocu.s2i(t) for t in tokens]
             tunnels[tokens[0]] = set(re.split(r",\s+", tokens[2], maxsplit=0))
             flows[tokens[0]] = tokens[1]
@@ -59,7 +62,7 @@ def get_plans_solo(path_lengths, flows, journey, plans):
 
 
 def solve_1(tunnels, flows):
-    start_valve = 'AA'
+    start_valve = "AA"
     # Get shortest paths between valves of interest
     path_lengths = get_all_valve_pairs_shortest_paths(tunnels, flows, start_valve)
     # Compute all possible plans:
@@ -69,7 +72,7 @@ def solve_1(tunnels, flows):
     #  v: visited non-zero valves, in sorted order
     #  n: current location
     # Plans are a dictionary of visited non-zero valves with best score recorded for them at any point
-    start_point = (0, 30, tuple(), 'AA')
+    start_point = (0, 30, tuple(), "AA")
     plans = dict()
     get_plans_solo(path_lengths, flows, start_point, plans)
     return max(plans.values())
@@ -82,7 +85,7 @@ def get_plans_duo(path_lengths, flows, journey, plans):
     if r1 is None and r2 is None:
         # end of path
         return
-    assert (r1 == 0 or r2 == 0)
+    assert r1 == 0 or r2 == 0
     visited = set(v)
     if r1 == 0:
         end_of_path = True
@@ -116,7 +119,7 @@ def get_plans_duo(path_lengths, flows, journey, plans):
 
 
 def solve_2_duo_journey(tunnels, flows):
-    start_valve = 'AA'
+    start_valve = "AA"
     # Get shortest paths between valves of interest
     path_lengths = get_all_valve_pairs_shortest_paths(tunnels, flows, start_valve)
     # Compute all possible plans:
@@ -128,18 +131,18 @@ def solve_2_duo_journey(tunnels, flows):
     #  n1: member 1's current location (if r1 == 0) or destination (if r1 > 0)
     #  r2: member 2's time remaining until next destination
     #  n1: member 1's current location (if r2 == 0) or destination (if r2 > 0)
-    start_point = (0, 26, tuple(), 0, 0, 'AA', 'AA')
+    start_point = (0, 26, tuple(), 0, 0, "AA", "AA")
     plans = dict()
     get_plans_duo(path_lengths, flows, start_point, plans)
     return max(plans.values())
 
 
 def solve_2_disjoint_subsets(tunnels, flows):
-    start_valve = 'AA'
+    start_valve = "AA"
     # Get shortest paths between valves of interest
     path_lengths = get_all_valve_pairs_shortest_paths(tunnels, flows, start_valve)
     # Compute all possible plans (score, time, visited_nodes) for time = 26
-    start_journey = (0, 26, tuple(), 'AA')
+    start_journey = (0, 26, tuple(), "AA")
     plans = dict()
     get_plans_solo(path_lengths, flows, start_journey, plans)
     # Now let's find the max score that is the sum of 2 scores with no common node

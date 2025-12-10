@@ -4,8 +4,8 @@ import statistics
 
 def parse_input(file=__file__):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
-        return [int(r) for r in f.readline().split(',')]
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
+        return [int(r) for r in f.readline().split(",")]
 
 
 def fuel_consumption_1(values, target):
@@ -31,7 +31,9 @@ def solve_naive(values, fuel_consumption):
             min_fuel = fuel
     return min_fuel
 
+
 # Don't bother with improving the search method for the global minimum of a convex fuction, there is better:
+
 
 def solve_1(values):
     # The optimal position is the median (for odd number of inputs; the median range for even number of inputs)

@@ -19,20 +19,20 @@ def parse_input(file=__file__, suffix=None):
 
 def solve_1(values):
     splits = 0
-    prev = { values[0].index('S') }
+    prev = {values[0].index("S")}
     for row in values[1:]:
         current = set()
         for i, c in enumerate(row):
             if i in prev:
-                if c == '.':
+                if c == ".":
                     current.add(i)
-                elif c == '^':
-                    assert 0 < i < len(values[0])-1
-                    current |= {i-1, i+1}
+                elif c == "^":
+                    assert 0 < i < len(values[0]) - 1
+                    current |= {i - 1, i + 1}
                     splits += 1
                 else:
-                   raise ValueError()
-        prev = current        
+                    raise ValueError()
+        prev = current
     return splits
 
 
@@ -41,16 +41,17 @@ def solve_2(values):
     def subworlds(depth, pos):
         if depth == len(values):
             return 1
-        if values[depth][pos] == '.':
-            res = subworlds(depth+1, pos)
-        elif values[depth][pos] == '^':
-            assert 0 < pos < len(values[0])-1
-            res = subworlds(depth+1, pos-1) + subworlds(depth+1, pos+1)
+        if values[depth][pos] == ".":
+            res = subworlds(depth + 1, pos)
+        elif values[depth][pos] == "^":
+            assert 0 < pos < len(values[0]) - 1
+            res = subworlds(depth + 1, pos - 1) + subworlds(depth + 1, pos + 1)
         else:
             raise ValueError(values[depth][pos])
         return res
 
-    return subworlds(1, values[0].index('S'))
+    return subworlds(1, values[0].index("S"))
+
 
 def main():
     input_values = parse_input()

@@ -76,7 +76,7 @@ def solve(values):
             if collision_count[new_ps[p]] > 1:
                 new_ps[p] = p
         ps = set(new_ps.values())
-        i = (i + 1)
+        i = i + 1
         if i == 10:
             part_1 = compute_solve_1(ps)
 

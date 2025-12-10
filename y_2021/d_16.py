@@ -4,7 +4,7 @@ from numpy import prod
 
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         s = f.readline().strip()
         return s
 
@@ -14,13 +14,13 @@ def bitify(s):
 
 
 def decode(bs):
-    if bs == '' or int(bs, 2) == 0:
+    if bs == "" or int(bs, 2) == 0:
         return []
     ver = int(bs[:3], 2)
     typ = int(bs[3:6], 2)
     if typ == 4:
         v, u, rbs = decode_lit(bs[6:])
-    elif bs[6] == '0':
+    elif bs[6] == "0":
         v, u, rbs = decode_op0(bs[7:])
     else:
         v, u, rbs = decode_op1(bs[7:])
@@ -29,8 +29,8 @@ def decode(bs):
 
 def decode_op0(bs):
     leng = int(bs[:15], 2)
-    sub_bs = bs[15:15 + leng]
-    rbs = bs[15 + leng:]
+    sub_bs = bs[15 : 15 + leng]
+    rbs = bs[15 + leng :]
     return decode(sub_bs), [], rbs
 
 
@@ -38,15 +38,15 @@ def decode_op1(bs):
     count = int(bs[:11], 2)
     rbs = bs[11:]
     res = decode(rbs)
-    return res[:count], res[count:], ''
+    return res[:count], res[count:], ""
 
 
 def decode_lit(bs):
     rbs = bs
-    vs = ''
+    vs = ""
     cont = True
     while cont:
-        cont = (rbs[0] == '1')
+        cont = rbs[0] == "1"
         vs += rbs[1:5]
         rbs = rbs[5:]
     v = int(vs, 2)

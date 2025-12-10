@@ -16,15 +16,31 @@ def parse_input(file=__file__, suffix=None):
 
 
 def solve_1(values):
-    res = [ re.sub("[a-z]", "", v) for v in values ]
-    res = [ int(r[0])*10 + int(r[-1]) for r in res ]
+    res = [re.sub("[a-z]", "", v) for v in values]
+    res = [int(r[0]) * 10 + int(r[-1]) for r in res]
     return sum(res)
 
 
 def solve_2(values):
     def parse(v):
-        FIGURES = {k: i for i, k in enumerate(('zero', 'one','two','three','four','five','six','seven','eight','nine'))}
-        
+        FIGURES = {
+            k: i
+            for i, k in enumerate(
+                (
+                    "zero",
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five",
+                    "six",
+                    "seven",
+                    "eight",
+                    "nine",
+                )
+            )
+        }
+
         l = None
         vl = v
         while l is None:
@@ -50,9 +66,9 @@ def solve_2(values):
             if r is not None:
                 break
             vr = vr[:-1]
-        return l*10 + r    
+        return l * 10 + r
 
-    res = [ parse(v) for v in values ]
+    res = [parse(v) for v in values]
     return sum(res)
 
 

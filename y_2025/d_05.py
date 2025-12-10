@@ -27,7 +27,7 @@ def solve_1(values):
 def merge_ranges(ranges):
     res = []
     for r in sorted(ranges):
-        if res and res[-1][1] >= r[0]-1:
+        if res and res[-1][1] >= r[0] - 1:
             res[-1][1] = max(res[-1][1], r[1])
         else:
             res.append(r)
@@ -36,7 +36,7 @@ def merge_ranges(ranges):
 
 def solve_2(values):
     id_ranges, _ = values
-    return sum( r[1]-r[0]+1 for r in merge_ranges(id_ranges))
+    return sum(r[1] - r[0] + 1 for r in merge_ranges(id_ranges))
 
 
 def main():

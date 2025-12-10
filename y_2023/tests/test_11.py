@@ -5,9 +5,9 @@ input_values = parse_input(__file__)
 
 
 def test_1():
-    assert solve_1(input_values) == aocu.s2i('374')
+    assert solve_1(input_values) == aocu.s2i("374")
 
 
 def test_2():
-    assert solve(input_values, 10) == aocu.s2i('1030')
-    assert solve(input_values, 100) == aocu.s2i('8410')
+    assert solve(input_values, 10) == aocu.s2i("1030")
+    assert solve(input_values, 100) == aocu.s2i("8410")

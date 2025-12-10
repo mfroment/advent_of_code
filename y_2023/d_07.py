@@ -26,7 +26,7 @@ def cmp_cards(a, b, card_values):
     return 0
 
 
-HAND_TYPES = ((5,), (4,1), (3,2), (3,1,1), (2,2,1), (2,1,1,1), (1,1,1,1,1))
+HAND_TYPES = ((5,), (4, 1), (3, 2), (3, 1, 1), (2, 2, 1), (2, 1, 1, 1), (1, 1, 1, 1, 1))
 
 
 def get_hand_type(cards, has_joker=False):
@@ -34,10 +34,10 @@ def get_hand_type(cards, has_joker=False):
     if not has_joker:
         hand_type = tuple(sorted(card_counts.values(), reverse=True))
     else:
-        if 'J' in card_counts and len(card_counts) > 1:
+        if "J" in card_counts and len(card_counts) > 1:
             # J is a joker and there are other cards; bonus count for the most common card
-            bonus = card_counts['J']
-            del card_counts['J']
+            bonus = card_counts["J"]
+            del card_counts["J"]
         else:
             # either no J or J is the only card; no bonus count
             bonus = 0
@@ -60,16 +60,16 @@ def solve(values, cmp_hand_func):
     sorted_hands = sorted(values, key=cmp_to_key(cmp_hand_func), reverse=True)
     score = 0
     for i, hand in enumerate(sorted_hands):
-        score += (i+1) * hand[1]
+        score += (i + 1) * hand[1]
     return score
 
 
 def solve_1(values):
-    return solve(values, lambda a, b: cmp_hand(a[0], b[0], 'AKQJT98765432'))
+    return solve(values, lambda a, b: cmp_hand(a[0], b[0], "AKQJT98765432"))
 
 
 def solve_2(values):
-    return solve(values, lambda a, b: cmp_hand(a[0], b[0], 'AKQT98765432J', has_joker=True))
+    return solve(values, lambda a, b: cmp_hand(a[0], b[0], "AKQT98765432J", has_joker=True))
 
 
 def main():
@@ -79,6 +79,7 @@ def main():
     print(f"Part 1: {str(solve_1(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
     start_time = time.time()
     print(f"Part 2: {str(solve_2(input_values)):<30}{'(':>30}{time.time() - start_time:.3f}s)")
+
 
 if __name__ == "__main__":
     main()

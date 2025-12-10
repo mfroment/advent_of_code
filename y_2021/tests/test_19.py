@@ -4,6 +4,7 @@ input_scanners = parse_input(__file__)
 
 all_beacons = solve(input_scanners)
 
+
 def test_1():
     assert len(all_beacons) == 79
 

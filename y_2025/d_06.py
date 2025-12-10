@@ -29,23 +29,23 @@ def parse_input_2(file=__file__, suffix=None):
     operators = []
     positions = []
     for i, c in enumerate(unparsed_operators):
-        if c != ' ':
+        if c != " ":
             positions.append(i)
             operators.append(c)
 
     n_problems = len(positions)
-    positions.append(len(unparsed_operators)+1) # add terminator
+    positions.append(len(unparsed_operators) + 1)  # add terminator
     numbers = []
     for i in range(n_problems):
         problem_numbers = []
         pos_start = positions[i]
-        pos_len = positions[i+1]-positions[i]-1
+        pos_len = positions[i + 1] - positions[i] - 1
         number_stack = [list() for _ in range(pos_len)]
-        for pos in range(pos_start, pos_start+pos_len):
+        for pos in range(pos_start, pos_start + pos_len):
             for unparsed_number_row in unparsed_numbers:
                 number_stack[pos - pos_start].append(unparsed_number_row[pos])
         for number_figures in number_stack:
-            problem_numbers.append(int(''.join(number_figures).rstrip()))
+            problem_numbers.append(int("".join(number_figures).rstrip()))
         numbers.append(problem_numbers)
     return numbers, operators
 
@@ -56,9 +56,9 @@ def solve(values):
     for i in range(len(operators)):
         vs = numbers[i]
         operand = operators[i]
-        if operand == '+':
+        if operand == "+":
             problems.append(sum(vs))
-        elif operand == '*':
+        elif operand == "*":
             problems.append(math.prod(vs))
         else:
             raise ValueError(f"Unknown operand: {operand}")
@@ -66,7 +66,6 @@ def solve(values):
 
 
 def main():
-
     start_time = time.time()
     input_values_1 = parse_input_1()
     print(f"Part 1: {str(solve(input_values_1)):<30}{'(':>30}{time.time() - start_time:.3f}s)")

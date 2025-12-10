@@ -4,17 +4,17 @@ import re
 
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
-        r = ' ' + f.readline().strip() + ' '  # pad template with terminators
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
+        r = " " + f.readline().strip() + " "  # pad template with terminators
         polypairs = dict()
         for i in range(len(r) - 1):
-            polypairs[r[i:i + 2]] = polypairs.get(r[i:i + 2], 0) + 1
+            polypairs[r[i : i + 2]] = polypairs.get(r[i : i + 2], 0) + 1
 
         insertions = dict()
         for r in f.readlines():
-            if r.strip() == '':
+            if r.strip() == "":
                 continue
-            m = re.search(r'(..) -> (.)', r.strip())
+            m = re.search(r"(..) -> (.)", r.strip())
             insertions[m.group(1)] = m.group(2)
         return polypairs, insertions
 
@@ -35,7 +35,7 @@ def breakup(polypairs):
     res = dict()
     for p, v in polypairs.items():
         for c in list(p):
-            if c != ' ':  # do not include terminators
+            if c != " ":  # do not include terminators
                 res[c] = res.get(c, 0) + v
     return res
 

@@ -8,9 +8,9 @@ VERBOSE = False
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append([v for v in r.strip()])
         return res
@@ -22,38 +22,38 @@ def print_landscape(lscape, display=None):
     if VERBOSE if display is None else display:
         print()
         for r in lscape:
-            print(''.join(r))
+            print("".join(r))
         print()
 
 
 def iterate_landscape(lscape):
     moved = False
     w, h = len(lscape[0]), len(lscape)
-    lscape_tmp = [['.'] * w for _ in range(h)]
+    lscape_tmp = [["."] * w for _ in range(h)]
     for j in range(h):
         for i in range(w):
-            if lscape[j][i] == '>':
-                if lscape[j][(i + 1) % w] == '.':
-                    lscape_tmp[j][(i + 1) % w] = '>'
+            if lscape[j][i] == ">":
+                if lscape[j][(i + 1) % w] == ".":
+                    lscape_tmp[j][(i + 1) % w] = ">"
                     moved = True
                 else:
-                    lscape_tmp[j][i] = '>'
-            elif lscape[j][i] == 'v':
-                lscape_tmp[j][i] = 'v'
+                    lscape_tmp[j][i] = ">"
+            elif lscape[j][i] == "v":
+                lscape_tmp[j][i] = "v"
     for j in range(h):
         for i in range(w):
             lscape[j][i] = lscape_tmp[j][i]
-            lscape_tmp[j][i] = '.'
+            lscape_tmp[j][i] = "."
     for i in range(w):
         for j in range(h):
-            if lscape[j][i] == 'v':
-                if lscape[(j + 1) % h][i] == '.':
-                    lscape_tmp[(j + 1) % h][i] = 'v'
+            if lscape[j][i] == "v":
+                if lscape[(j + 1) % h][i] == ".":
+                    lscape_tmp[(j + 1) % h][i] = "v"
                     moved = True
                 else:
-                    lscape_tmp[j][i] = 'v'
-            elif lscape[j][i] == '>':
-                lscape_tmp[j][i] = '>'
+                    lscape_tmp[j][i] = "v"
+            elif lscape[j][i] == ">":
+                lscape_tmp[j][i] = ">"
     for j in range(h):
         for i in range(w):
             lscape[j][i] = lscape_tmp[j][i]
@@ -77,19 +77,19 @@ def lscape_to_lset(lscape):
     r, d = set(), set()
     for j in range(h):
         for i in range(w):
-            if lscape[j][i] == '>':
+            if lscape[j][i] == ">":
                 r.add((i, j))
-            elif lscape[j][i] == 'v':
+            elif lscape[j][i] == "v":
                 d.add((i, j))
     return w, h, r, d
 
 
 def landset_to_landscape(w, h, r, d):
-    lscape = [['.'] * w for _ in range(h)]
-    for (i, j) in r:
-        lscape[j][i] = '>'
-    for (i, j) in d:
-        lscape[j][i] = 'v'
+    lscape = [["."] * w for _ in range(h)]
+    for i, j in r:
+        lscape[j][i] = ">"
+    for i, j in d:
+        lscape[j][i] = "v"
     return lscape
 
 
@@ -100,7 +100,7 @@ def print_landset(w, h, r, d):
 def iterate_landset(w, h, r, d):
     moved = False
     n = set()
-    for (i, j) in r:
+    for i, j in r:
         p = ((i + 1) % w, j)
         if p not in r and p not in d and p not in n:
             n.add(p)
@@ -110,7 +110,7 @@ def iterate_landset(w, h, r, d):
     r.clear()
     r.update(n)
     n = set()
-    for (i, j) in d:
+    for i, j in d:
         p = (i, (j + 1) % h)
         if p not in r and p not in d and p not in n:
             n.add(p)

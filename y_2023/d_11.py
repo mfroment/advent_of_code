@@ -8,7 +8,7 @@ def parse_input(file=__file__, suffix=None):
     for section in sections:
         sub_res = []
         for line in section:
-            tokens = [1 if t=='.' else '#' for t in line]
+            tokens = [1 if t == "." else "#" for t in line]
             sub_res.append(tokens)
         res.append(sub_res)
     return aocu.reduce_input(res)  # dimensionality reduction
@@ -17,11 +17,11 @@ def parse_input(file=__file__, suffix=None):
 def get_expanded_universe(universe, expansion_factor):
     res = [line[:] for line in universe]
     for line in res:
-        if not any(t == '#' for t in line):
+        if not any(t == "#" for t in line):
             for i in range(len(line)):
                 line[i] = expansion_factor
     for i in range(len(res[0])):
-        if not any(t == '#' for t in [line[i] for line in res]):
+        if not any(t == "#" for t in [line[i] for line in res]):
             for line in res:
                 line[i] = expansion_factor
     return res
@@ -33,10 +33,10 @@ def get_galaxies(universe):
     for line in universe:
         hshift = 0
         for c in line:
-            if c == '#':
+            if c == "#":
                 galaxies.add((hshift, vshift))
-            hshift += (1 if c == '#' else c)
-        vshift += (1 if line[0] == '#' else line[0])
+            hshift += 1 if c == "#" else c
+        vshift += 1 if line[0] == "#" else line[0]
     return galaxies
 
 

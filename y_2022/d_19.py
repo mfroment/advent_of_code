@@ -13,7 +13,8 @@ def parse_input(file=__file__, suffix=None):
         for line in section:
             tokens = re.search(
                 r"^Blueprint (\d+): Each ore robot costs (\d+) ore. Each clay robot costs (\d+) ore. Each obsidian robot costs (\d+) ore and (\d+) clay. Each geode robot costs (\d+) ore and (\d+) obsidian.$",
-                line).groups()
+                line,
+            ).groups()
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)

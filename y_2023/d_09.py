@@ -22,8 +22,8 @@ def extrapolate_seq(seq):
     while any(s != 0 for s in cseq):
         cseq = [cseq[i] - cseq[i - 1] for i in range(1, len(cseq))]
         subseqs += [cseq]
-    for i in range(-2, -len(subseqs) -1, -1):
-        subseqs[i].append(subseqs[i][-1] + subseqs[i+1][-1])
+    for i in range(-2, -len(subseqs) - 1, -1):
+        subseqs[i].append(subseqs[i][-1] + subseqs[i + 1][-1])
     return subseqs[0][-1]
 
 

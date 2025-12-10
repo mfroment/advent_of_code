@@ -2,6 +2,7 @@ from y_2022.d_16 import *
 
 tunnels, flows = parse_input(__file__)
 
+
 def test_1():
     assert solve_1(tunnels, flows) == 1651
 

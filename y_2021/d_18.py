@@ -5,9 +5,9 @@ import ast
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append(ast.literal_eval(r.strip()))
         return res
@@ -21,7 +21,7 @@ def c2i(c):
 
 
 def l2s(lst):
-    return [c2i(x) for x in str(lst) if x not in {' ', ','}]
+    return [c2i(x) for x in str(lst) if x not in {" ", ","}]
 
 
 def s2l(s):
@@ -29,23 +29,23 @@ def s2l(s):
     for i, x in enumerate(s):
         ns.append(x)
         if i < len(s) - 1:
-            if (x == ']' or isinstance(x, int)) and s[i + 1] != ']':
-                ns.append(',')
-    return ast.literal_eval(''.join([str(x) for x in ns]))
+            if (x == "]" or isinstance(x, int)) and s[i + 1] != "]":
+                ns.append(",")
+    return ast.literal_eval("".join([str(x) for x in ns]))
 
 
 def explode(s):
     last_int = None
     d = 0
     for i, x in enumerate(s):
-        if x == '[':
+        if x == "[":
             d += 1
-        elif x == ']':
+        elif x == "]":
             d -= 1
         else:  # integer
             if d > 4 and isinstance(s[i + 1], int):
-                ls = s[:i - 1]
-                rs = s[i + 3:]
+                ls = s[: i - 1]
+                rs = s[i + 3 :]
                 if last_int is not None:  # update left int if any
                     ls[last_int] += x
                 for j, y in enumerate(rs):  # find right int if any and update it
@@ -60,7 +60,7 @@ def explode(s):
 def split(s):
     for i, x in enumerate(s):
         if isinstance(x, int) and x >= 10:
-            return True, s[:i] + ['[', x // 2, (x + 1) // 2, ']'] + s[i + 1:]
+            return True, s[:i] + ["[", x // 2, (x + 1) // 2, "]"] + s[i + 1 :]
     return False, s
 
 

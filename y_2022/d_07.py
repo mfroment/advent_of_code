@@ -18,7 +18,7 @@ def parse_input(file=__file__, suffix=None):
 
 def compute_sizes(values):
     # add a fake `cd` instruction in order to "force close" the parsing of `ls` if that's the last non-fake instruction
-    values.append(['$', 'cd', '/'])
+    values.append(["$", "cd", "/"])
     # process instructions as a stack easier with a stack (pop from tail rather than head), thus reverse:
     values = list(reversed(values))
 
@@ -26,21 +26,21 @@ def compute_sizes(values):
     current_dir = None
     while len(values) > 0:
         v = values.pop()
-        if v[0] == '$':
-            if v[1] == 'cd':
-                if v[2] == '/':
-                    current_dir = '/'
-                elif v[2] == '..':
-                    current_dir = '/' + '/'.join(current_dir[1:].split('/')[:-1])
+        if v[0] == "$":
+            if v[1] == "cd":
+                if v[2] == "/":
+                    current_dir = "/"
+                elif v[2] == "..":
+                    current_dir = "/" + "/".join(current_dir[1:].split("/")[:-1])
                 else:
-                    current_dir = current_dir + ('' if current_dir == '/' else '/') + v[2]
+                    current_dir = current_dir + ("" if current_dir == "/" else "/") + v[2]
                 dir_sizes.setdefault(current_dir, 0)
-            elif v[1] == 'ls':
+            elif v[1] == "ls":
                 # ls mode - compute (non-recursive) size (no need to bother if already visited, or record subdirs)
                 dir_sizes[current_dir] = 0
                 while len(values) > 0:
                     v = values.pop()
-                    if v[0] == '$':
+                    if v[0] == "$":
                         # next command, push it back then exit ls mode
                         values.append(v)
                         break
@@ -53,7 +53,7 @@ def compute_sizes(values):
     for dir in dir_sizes:
         recursive_size = 0
         for subdir, subsize in dir_sizes.items():
-            if subdir[:len(dir)] == dir:
+            if subdir[: len(dir)] == dir:
                 recursive_size += subsize
         dir_recursive_sizes[dir] = recursive_size
 
@@ -61,7 +61,7 @@ def compute_sizes(values):
 
 
 def solve_1(recursive_sizes):
-    return sum(s for s in recursive_sizes.values() if s <= 100000 )
+    return sum(s for s in recursive_sizes.values() if s <= 100000)
 
 
 def solve_2(recursive_sizes):

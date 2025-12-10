@@ -9,7 +9,7 @@ def parse_input(file=__file__, suffix=None):
 
 def solve(values, length):
     i = length
-    while len(set(values[i - length:i])) != length:
+    while len(set(values[i - length : i])) != length:
         i += 1
     return i
 

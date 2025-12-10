@@ -1,12 +1,13 @@
 from pathlib import Path
 
+
 def read_input(file, suffix=None):
     p = Path(file)
     sections = []
     section = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for line in f.read().splitlines():
-            if line == '':
+            if line == "":
                 if len(section) > 0:
                     sections.append(section)
                     section = []

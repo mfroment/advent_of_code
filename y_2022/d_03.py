@@ -21,14 +21,14 @@ PRIORITIES = {l: ITEMS.index(l) + 1 for l in ITEMS}
 
 def common_item(*sets):
     candidates = set.intersection(*sets)
-    assert (len(candidates) == 1)
+    assert len(candidates) == 1
     return candidates.pop()
 
 
 def solve_1(values):
     total_priority = 0
     for v in values:
-        c = common_item(set(v[:len(v) // 2]), set(v[len(v) // 2:]))
+        c = common_item(set(v[: len(v) // 2]), set(v[len(v) // 2 :]))
         total_priority += PRIORITIES[c]
     return total_priority
 

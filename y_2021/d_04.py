@@ -4,10 +4,10 @@ from pathlib import Path
 def parse_input(file=__file__):
     p = Path(file)
     grids = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
-        drawings = [int(r) for r in f.readline().split(',')]
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
+        drawings = [int(r) for r in f.readline().split(",")]
         rows = f.readlines()
-    rows.append('')  # append a "terminator" empty string to ensure capturing the last grid
+    rows.append("")  # append a "terminator" empty string to ensure capturing the last grid
     grid = []
     for r in rows:
         r = r.strip()

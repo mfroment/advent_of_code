@@ -24,9 +24,9 @@ def jolt(v, size):
     if size == 0:
         return 0
     # search max in a copy-slice, then look it up again, then recurse on another copy-slice, while not ideal, does not impact complexity and works at the scale of the problem
-    lead = max(v[:-size+1] if size > 1 else v)
+    lead = max(v[: -size + 1] if size > 1 else v)
     i = v.index(lead)
-    res = lead * (10 ** (size-1)) + jolt(v[i+1:], size-1)
+    res = lead * (10 ** (size - 1)) + jolt(v[i + 1 :], size - 1)
     return res
 
 

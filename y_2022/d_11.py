@@ -37,7 +37,7 @@ def parse_input(file=__file__, suffix=None):
         sub_res = []
         for line in section:
             tokens = re.split(r"\s+", line, maxsplit=0)
-            tokens = [t.replace(',', '') for t in tokens]
+            tokens = [t.replace(",", "") for t in tokens]
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         items = sub_res[1][3:]
@@ -47,8 +47,8 @@ def parse_input(file=__file__, suffix=None):
         #         operation_string = ' '.join(str(x) for x in sub_res[2][4:])
         #         operations = [lambda old, i=i: eval(operation_string.replace('old', str(old)))]
         #       (the lambda defined "last" will be the one used everywhere)
-        operation_strings.append(' '.join(str(x) for x in sub_res[2][4:]))
-        operations = [lambda old, i=i: eval(operation_strings[i].replace('old', str(old)))]
+        operation_strings.append(" ".join(str(x) for x in sub_res[2][4:]))
+        operations = [lambda old, i=i: eval(operation_strings[i].replace("old", str(old)))]
         test_div = sub_res[3][4]
         true_monkey = sub_res[4][6]
         false_monkey = sub_res[5][6]

@@ -13,7 +13,8 @@ def parse_input(file=__file__, suffix=None):
         px, py, pz, dx, dy, dz = tuple(
             int(e)
             for e in re.search(
-                r"(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*@\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)", line
+                r"(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*@\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)",
+                line,
             ).groups()
         )
         res.append((px, py, pz, dx, dy, dz))

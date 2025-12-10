@@ -4,20 +4,20 @@ from pathlib import Path
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
             res.append(r.strip())
         return res
 
 
 def binarize(s, zero):
-    return int(''.join(['0' if c == zero else '1' for c in s]), 2)
+    return int("".join(["0" if c == zero else "1" for c in s]), 2)
 
 
 def seat(s):
-    r, c = binarize(s[:7], 'F'), binarize(s[7:], 'L')
+    r, c = binarize(s[:7], "F"), binarize(s[7:], "L")
     return r, c, r * 8 + c
 
 

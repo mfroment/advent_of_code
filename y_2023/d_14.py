@@ -7,7 +7,9 @@ def parse_input(file=__file__, suffix=None):
     sections = aocu.read_input(file, suffix)
     return aocu.reduce_input(sections)  # dimensionality reduction
 
+
 # I'd rather rotate the grid than code the 4 cases of sliding rocks...
+
 
 def rotate_clockwise(matrix, times):
     # 2 out of 4 cases aren't needed, but I might need them in a future problem...
@@ -19,7 +21,7 @@ def rotate_clockwise(matrix, times):
         r = reversed([reversed(line) for line in matrix])
     if times % 4 == 3:
         r = reversed(list((zip(*matrix))))
-    return [ "".join(line) for line in r ]
+    return ["".join(line) for line in r]
 
 
 def slide_left_line(line):
@@ -32,14 +34,14 @@ def slide_left_line(line):
 
 
 def slide_left(matrix):
-    return [ slide_left_line(line) for line in matrix ]
+    return [slide_left_line(line) for line in matrix]
 
 
 def compute_load(matrix):
     res = 0
     for i, line in enumerate(reversed(matrix)):
         c = Counter(line)
-        res += c["O"] * (i+1)
+        res += c["O"] * (i + 1)
     return res
 
 
@@ -54,7 +56,7 @@ def perform_one_cycle(values):
     rv = rotate_clockwise(values, -1)
     for _ in range(4):
         rv = slide_left(rv)
-        rv = rotate_clockwise(rv, 1)    
+        rv = rotate_clockwise(rv, 1)
     return rotate_clockwise(rv, 1)
 
 
@@ -73,7 +75,7 @@ def solve_2(values):
         else:
             seen[k] = i
         values = perform_one_cycle(values)
-        i+=1
+        i += 1
     return compute_load(values)
 
 

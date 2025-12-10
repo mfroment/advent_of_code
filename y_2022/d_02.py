@@ -19,8 +19,8 @@ def parse_input(file=__file__, suffix=None):
 def round_score_1(p1, p2):
     # pick    : 0 rock, 1 paper, 2 scissors
     # outcome : 0 loss, 1 draw, 2 win
-    p1_picks = {'A': 0, 'B': 1, 'C': 2}
-    p2_picks = {'X': 0, 'Y': 1, 'Z': 2}
+    p1_picks = {"A": 0, "B": 1, "C": 2}
+    p2_picks = {"X": 0, "Y": 1, "Z": 2}
     p1_pick = p1_picks[p1]
     p2_pick = p2_picks[p2]
     outcome = (p2_pick - p1_pick + 1) % 3
@@ -31,8 +31,8 @@ def round_score_1(p1, p2):
 def round_score_2(p1, p2):
     # pick    : 0 rock, 1 paper, 2 scissors
     # outcome : 0 loss, 1 draw, 2 win
-    p1_picks = {'A': 0, 'B': 1, 'C': 2}
-    outcomes = {'X': 0, 'Y': 1, 'Z': 2}
+    p1_picks = {"A": 0, "B": 1, "C": 2}
+    outcomes = {"X": 0, "Y": 1, "Z": 2}
     p1_pick = p1_picks[p1]
     outcome = outcomes[p2]
     p2_pick = (p1_pick + outcome - 1) % 3

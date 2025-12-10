@@ -21,7 +21,7 @@ def parse_input(file=__file__, suffix=None):
 def solve_1(values):
     def remap(value, map):
         for dest, src, ln in map:
-            if src <= value < src+ln:
+            if src <= value < src + ln:
                 return dest + value - src
         return value
 
@@ -40,17 +40,23 @@ def solve_2(values):
         rnge_start, rnge_ln = rnge
         dest, src, ln = maplet
         # unremapped range on the left of the mapping interval
-        r_l = (rnge_start, min(src-rnge_start, rnge_ln))
+        r_l = (rnge_start, min(src - rnge_start, rnge_ln))
         if r_l[1] <= 0:
             r_l = None
         # remapped middle interval intersecting the mapping interval
-        r_m = (max(src, rnge_start), min(rnge_start+rnge_ln, src+ln)-max(src, rnge_start))
+        r_m = (
+            max(src, rnge_start),
+            min(rnge_start + rnge_ln, src + ln) - max(src, rnge_start),
+        )
         if r_m[1] <= 0:
             r_m = None
         else:
-            r_m = (dest+r_m[0]-src, r_m[1])
+            r_m = (dest + r_m[0] - src, r_m[1])
         # unremapped range on the right of the mapping interval
-        r_r = (max(src+ln,rnge_start), rnge_start+rnge_ln-max(src+ln,rnge_start))
+        r_r = (
+            max(src + ln, rnge_start),
+            rnge_start + rnge_ln - max(src + ln, rnge_start),
+        )
         if r_r[1] <= 0:
             r_r = None
         # return [unremapped intervals], [remapped interval]  -- they can be empty lists
@@ -78,7 +84,7 @@ def solve_2(values):
 
     # prepare the ranges, and the sequence of maps
     seeds, maps = values
-    rnges = [(seeds[i], seeds[i+1]) for i in range(0, len(seeds), 2)]    
+    rnges = [(seeds[i], seeds[i + 1]) for i in range(0, len(seeds), 2)]
     res = remap_ranges_along_sequence_of_maps(rnges, maps)
     # return the minimum of the left bounds of the ranges - that's the answer
     return min(r[0] for r in res)

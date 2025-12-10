@@ -102,7 +102,7 @@ def grids_to_vector_graphics(grid_list, mapping, cell_size=10, svg_stem=None, ht
             html_file.write('<div id="progressBar" onclick="selectIndex(event)">\n')
             for idx in range(len(grid_list)):
                 html_file.write(
-                    f'  <div id="progressSegment{idx}" style="width: {100/len(grid_list)}%; background-color: #ddd;"></div>\n'
+                    f'  <div id="progressSegment{idx}" style="width: {100 / len(grid_list)}%; background-color: #ddd;"></div>\n'
                 )
             html_file.write("</div>\n")
 
@@ -203,7 +203,6 @@ def grids_to_vector_graphics(grid_list, mapping, cell_size=10, svg_stem=None, ht
 # example usage
 
 if __name__ == "__main__":
-
     # Example usage
     grid_list = [
         [

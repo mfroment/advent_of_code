@@ -6,11 +6,11 @@ import itertools
 def parse_input(file=__file__, suffix=None):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + ('' if suffix is None else '-' + suffix) + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ("" if suffix is None else "-" + suffix) + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 continue
-            res.append([int(v) for v in r.strip().split(',')])
+            res.append([int(v) for v in r.strip().split(",")])
         return res[0]
 
 
@@ -19,7 +19,7 @@ def process(ops, idx=0):
         return True
     if ops[idx] not in {1, 2}:
         return False
-    op, a, b, i = ops[idx:idx + 4]
+    op, a, b, i = ops[idx : idx + 4]
     a, b = ops[a], ops[b]
     if ops[idx] == 1:
         ops[i] = a + b

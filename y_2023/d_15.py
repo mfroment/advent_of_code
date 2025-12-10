@@ -27,7 +27,7 @@ def solve_1(values):
 
 def solve_2(values):
     lenses = dict()
-    boxes = [ list() for _ in range(256) ]
+    boxes = [list() for _ in range(256)]
     for s in values:
         if s.endswith("-"):
             s = s[:-1]

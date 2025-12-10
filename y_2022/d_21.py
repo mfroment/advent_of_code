@@ -33,7 +33,7 @@ def get_num(key, numbers, ops):
 
 def solve_1(ops):
     numbers = dict()
-    return int(get_num('root', numbers, ops))
+    return int(get_num("root", numbers, ops))
 
 
 def solve_2_search(ops):
@@ -42,8 +42,8 @@ def solve_2_search(ops):
     SEARCH_RANGE = 10
 
     ops = deepcopy(ops)
-    k1, _, k2 = ops['root']
-    ops['root'] = [k1, '-', k2]
+    k1, _, k2 = ops["root"]
+    ops["root"] = [k1, "-", k2]
 
     def find_root(x):
         f = dict()
@@ -58,9 +58,9 @@ def solve_2_search(ops):
         return int(x - f[x] / delta_f), False
 
     def compute_f(x):
-        ops['humn'] = x
+        ops["humn"] = x
         numbers = dict()
-        return get_num('root', numbers, ops)
+        return get_num("root", numbers, ops)
 
     x = 0
     for _ in range(MAX_TRIES):
@@ -76,7 +76,7 @@ def get_expr(key, exprs, ops):
     elif isinstance(ops[key], int):
         exprs[key] = sy.parse_expr(str(ops[key]))
     elif len(ops[key]) == 1:
-        a, = ops[key]
+        (a,) = ops[key]
         exprs[key] = sy.parse_expr(a)
     else:
         a, op, b = ops[key]
@@ -88,11 +88,11 @@ def get_expr(key, exprs, ops):
 
 def solve_2_symbolic(ops):
     ops = deepcopy(ops)
-    k1, _, k2 = ops['root']
-    ops['root'] = [k1, '-', k2]
-    ops['humn'] = ['humn']
+    k1, _, k2 = ops["root"]
+    ops["root"] = [k1, "-", k2]
+    ops["humn"] = ["humn"]
     exprs = dict()
-    return sy.solve(get_expr('root', exprs, ops), sy.Symbol('humn'))[0]
+    return sy.solve(get_expr("root", exprs, ops), sy.Symbol("humn"))[0]
 
 
 solve_2 = solve_2_symbolic

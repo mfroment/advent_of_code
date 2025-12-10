@@ -29,8 +29,8 @@ FACING_VALUE = {
 
 # compute new facing when turning
 TURNING = {
-    'L': lambda p: (p[1], -p[0]),
-    'R': lambda p: (-p[1], p[0]),
+    "L": lambda p: (p[1], -p[0]),
+    "R": lambda p: (-p[1], p[0]),
 }
 
 
@@ -61,9 +61,9 @@ def make_grid_1(values):
             n = Node()
             if i < len(values[j]):
                 v = values[j][i]
-                if v == ' ':
+                if v == " ":
                     continue
-                n.v = (v == '.')
+                n.v = v == "."
                 nodes[(i, j)] = n
     # Set neighbours
     for p, n in nodes.items():

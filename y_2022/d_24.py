@@ -17,10 +17,10 @@ def parse_input(file=__file__, suffix=None):
 
 
 WINDS = {
-    '>': (1, 0),
-    '<': (-1, 0),
-    '^': (0, -1),
-    'v': (0, 1),
+    ">": (1, 0),
+    "<": (-1, 0),
+    "^": (0, -1),
+    "v": (0, 1),
 }
 
 
@@ -43,7 +43,7 @@ def make_basin(values):
     for y in range(1, h + 1):
         for x in range(1, w + 1):
             v = values[y][x]
-            if v != '.':
+            if v != ".":
                 basin[(x, y)] = {WINDS[v]}
     return basin, w, h
 
@@ -91,7 +91,7 @@ def make_graph(reachables, w, h):
     for ri, r in enumerate(reachables):
         nri = (ri + 1) % len(reachables)
         nr = reachables[nri]
-        for (x, y) in r:
+        for x, y in r:
             for dp in (0, 0), (1, 0), (-1, 0), (0, 1), (0, -1):
                 nx, ny = pos_add((x, y), dp)
                 if (nx, ny) in nr:

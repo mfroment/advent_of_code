@@ -12,7 +12,7 @@ def parse_input(file=__file__, suffix=None):
         for line in section:
             spring, breakage = line.split(" ")
             breakage = tuple([int(b) for b in breakage.split(",")])
-            sub_res.append((spring,breakage))
+            sub_res.append((spring, breakage))
         res.append(sub_res)
     return aocu.reduce_input(res)  # dimensionality reduction
 
@@ -20,16 +20,16 @@ def parse_input(file=__file__, suffix=None):
 # This is the brute force solution I came up with that was compatible
 # with my workday, but not with the scale of the problem for part 2 😅
 def naive_solve(values):
-    def expand_spring(spring, prev = ['']):
+    def expand_spring(spring, prev=[""]):
         if len(spring) == 0:
             return prev
         if spring[0] == "?":
-            return expand_spring(spring[1:], [ p + '.' for p in prev] + [ p + '#' for p in prev])
+            return expand_spring(spring[1:], [p + "." for p in prev] + [p + "#" for p in prev])
         else:
-            return expand_spring(spring[1:], [ p + spring[0] for p in prev])
+            return expand_spring(spring[1:], [p + spring[0] for p in prev])
 
     def breakage_to_pattern(breakage):
-        pattern = r"^\.*" + "".join([r"#{" + str(b) +r"}\.+" for b in breakage])
+        pattern = r"^\.*" + "".join([r"#{" + str(b) + r"}\.+" for b in breakage])
         pattern = pattern[:-1] + r"*$"
         return pattern
 
@@ -47,7 +47,7 @@ def naive_solve(values):
 # (EDIT: slightly modified from the original version, to use the cache decorator instead of a dict for memoization)
 @cache
 def count_spring_breakages(spring, breakage):
-    spring = spring.strip(".") 
+    spring = spring.strip(".")
 
     if len(breakage) == 0:
         if re.match(r"^[.?]*$", spring):
@@ -63,8 +63,8 @@ def count_spring_breakages(spring, breakage):
 
     assert spring[0] == "#"  # because we stripped "." / checked for leading "?"
     b, bs = breakage[0], tuple(breakage[1:])
-    if re.match(r"^#[#?]{" + str(b-1) + r"}(\.|\?|$)", spring):
-        ns = spring[(b+1):]
+    if re.match(r"^#[#?]{" + str(b - 1) + r"}(\.|\?|$)", spring):
+        ns = spring[(b + 1) :]
         nb = count_spring_breakages(ns, bs)
         return nb
     else:

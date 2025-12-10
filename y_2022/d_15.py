@@ -9,8 +9,10 @@ def parse_input(file=__file__, suffix=None):
     for section in sections:
         sub_res = []
         for line in section:
-            tokens = re.search(r"^Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)$",
-                               line).groups()
+            tokens = re.search(
+                r"^Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)$",
+                line,
+            ).groups()
             tokens = [aocu.s2i(t) for t in tokens]
             sub_res.append(tokens)
         res.append(sub_res)
@@ -51,7 +53,7 @@ def union_many_intervals(intervals):
 
 
 def intersect_one_interval_to_many_intervals(one, intervals):
-    assert (len(one) == 2)
+    assert len(one) == 2
     # assume the intervals have been union'ed
     res = []
     for interval in intervals:
@@ -133,11 +135,11 @@ def solve_2_losange_boundaries(values, tsx, tex, tsy, tey):
     # Then do the same for backslash lines.
     slash_lines, backslash_lines = set(), set()
     for beacon_slanted_lines, slanted_lines in (
-            (beacon_slash_lines, slash_lines),
-            (beacon_backslash_lines, backslash_lines)
+        (beacon_slash_lines, slash_lines),
+        (beacon_backslash_lines, backslash_lines),
     ):
         for i, (x1, x2) in enumerate(beacon_slanted_lines):
-            for xx1, xx2 in beacon_slanted_lines[i + 1:]:
+            for xx1, xx2 in beacon_slanted_lines[i + 1 :]:
                 if x1 == xx2:
                     slanted_lines.add(x1)
                 if x2 == xx1:
@@ -153,9 +155,10 @@ def solve_2_losange_boundaries(values, tsx, tex, tsy, tey):
     intersections = {(x, y) for (x, y) in intersections if tsx <= x <= tex and tsy <= y <= tey}
     # Only keep intersections not in any sensor's exclusion losange
     # (there should be one and only one)
-    intersections = {(x, y) for (x, y) in intersections if
-                     all(md(sx, sy, x, y) > md(sx, sy, bx, by) for sx, sy, bx, by in values)}
-    assert (len(intersections) == 1)
+    intersections = {
+        (x, y) for (x, y) in intersections if all(md(sx, sy, x, y) > md(sx, sy, bx, by) for sx, sy, bx, by in values)
+    }
+    assert len(intersections) == 1
     (x, y) = intersections.pop()
     return 4000000 * x + y
 

@@ -5,17 +5,17 @@ import numpy as np
 SNAFU = {
     "=": -2,
     "-": -1,
-    '0': 0,
-    '1': 1,
-    '2': 2,
+    "0": 0,
+    "1": 1,
+    "2": 2,
 }
 
 REVERSE_SNAFU = {
-    '0': '=',
-    '1': '-',
-    '2': '0',
-    '3': '1',
-    '4': '2',
+    "0": "=",
+    "1": "-",
+    "2": "0",
+    "3": "1",
+    "4": "2",
 }
 
 
@@ -27,16 +27,16 @@ def parse_input(file=__file__, suffix=None):
 def sna_2_dec(sna):
     dec = 0
     for exponent, dec_digit in enumerate(reversed(sna)):
-        dec += (5 ** exponent) * SNAFU[dec_digit]
+        dec += (5**exponent) * SNAFU[dec_digit]
     return dec
 
 
 def dec_2_sna(dec):
     exponent = 0
-    while (dec - 5 ** exponent) >= 0:
-        dec += 2 * (5 ** exponent)
+    while (dec - 5**exponent) >= 0:
+        dec += 2 * (5**exponent)
         exponent += 1
-    sna = ''.join(REVERSE_SNAFU[c] for c in str(np.base_repr(dec, base=5)))
+    sna = "".join(REVERSE_SNAFU[c] for c in str(np.base_repr(dec, base=5)))
     return sna
 
 

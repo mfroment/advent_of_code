@@ -4,13 +4,13 @@ from pathlib import Path
 def parse_input(file=__file__):
     p = Path(file)
     res = []
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
         for r in f.readlines():
-            if r == '':
+            if r == "":
                 pass
-            parts = r.strip().split(' | ')
-            digit_patterns = [''.join(sorted(p)) for p in parts[0].split(' ')]
-            number_patterns = [''.join(sorted(p)) for p in parts[1].split(' ')]
+            parts = r.strip().split(" | ")
+            digit_patterns = ["".join(sorted(p)) for p in parts[0].split(" ")]
+            number_patterns = ["".join(sorted(p)) for p in parts[1].split(" ")]
             res.append([digit_patterns, number_patterns])
     return res
 

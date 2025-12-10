@@ -7,8 +7,8 @@ MODULUS = 20201227
 
 def parse_input(file=__file__):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
-        return [int(r) for r in f.readlines() if r != '']
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
+        return [int(r) for r in f.readlines() if r != ""]
 
 
 def modular_log(a, b, n):

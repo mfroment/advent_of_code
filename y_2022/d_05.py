@@ -12,7 +12,7 @@ def parse_input(file=__file__, suffix=None):
     for r in sections[0][:-1]:
         tokens = [r[1 + 4 * i] for i in range(0, n_pos)]
         for i, v in enumerate(tokens):
-            if v != ' ':
+            if v != " ":
                 positions[i + 1].append(v)
     for i, pos in positions.items():
         positions[i] = list(reversed(pos))
@@ -36,7 +36,7 @@ def process_move(positions, n, src, tgt, reverse=True):
 
 def top_layer(positions):
     n_pos = max(positions.keys())
-    return ''.join([positions[i][-1] for i in range(1, n_pos + 1)])
+    return "".join([positions[i][-1] for i in range(1, n_pos + 1)])
 
 
 def solve_moves(positions, moves, reverse=True):

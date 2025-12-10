@@ -3,14 +3,14 @@ from pathlib import Path
 
 def parse_input(file=__file__):
     p = Path(file)
-    with open(p.parent.joinpath('input').joinpath(p.stem + '.txt')) as f:
-        return [(lambda a, b: [a, int(b)])(*r.split(' ')) for r in f.readlines() if r != '']
+    with open(p.parent.joinpath("input").joinpath(p.stem + ".txt")) as f:
+        return [(lambda a, b: [a, int(b)])(*r.split(" ")) for r in f.readlines() if r != ""]
 
 
 def solve_1(commands):
     depth = 0
     position = 0
-    for (direction, value) in commands:
+    for direction, value in commands:
         if direction == "up":
             depth -= value
             if depth < 0:
@@ -26,7 +26,7 @@ def solve_2(commands):
     depth = 0
     position = 0
     aim = 0
-    for (direction, value) in commands:
+    for direction, value in commands:
         if direction == "up":
             aim -= value
         elif direction == "down":
