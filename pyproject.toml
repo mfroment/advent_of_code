@@ -1,29 +1,40 @@
-[tool.poetry]
+[project]
 name = "advent-of-code"
 version = "0.1.0"
 description = ""
-authors = ["Maxime Froment <mfroment99@gmail.com>"]
+authors = [{ name = "Maxime Froment", email = "mfroment99@gmail.com" }]
 readme = "README.md"
-packages = [{ include = "aoc" }, { include = "y_2019" }, { include = "y_2020" }, { include = "y_2021" }, { include = "y_2022" }]
+requires-python = ">=3.14"
+dependencies = [
+    "advent-of-code-data",
+    "cookiecutter",
+    "indexed",
+    "networkx",
+    "numpy",
+    "sympy",
+    "z3-solver",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-numpy = "^1.23.5"
-advent-of-code-data = "*"
-networkx = "*"
-indexed = "*"
-sympy = "*"
-z3-solver = "^4.12.4.0"
-cookiecutter = "^2.6.0"
-ruff = "^0.14.8"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.2.0"
+[dependency-groups]
+dev = ["pre-commit", "pytest", "ruff"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+dev-mode-dirs = ["."]
+bypass-selection = true
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+norecursedirs = ["_init", ".venv", "input"]
 
 [tool.ruff]
 line-length = 120
+# cookiecutter templates are Jinja, not parseable Python
+exclude = ["_init"]
+
+[tool.ruff.lint.per-file-ignores]
+# tests deliberately star-import the day module under test
+"y_*/tests/test_*.py" = ["F403", "F405"]

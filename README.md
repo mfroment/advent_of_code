@@ -2,8 +2,11 @@
 
 The inputs are for when logged into AoC site with that GitHub account!
 
-### Setup poetry environment
-poetry install
+### Setup environment
+Requires [uv](https://docs.astral.sh/uv/) and Python 3.14 (uv will fetch it if needed).
+```shell
+uv sync
+```
 
 ### Setup daily problem
 ```shell
@@ -19,8 +22,9 @@ Note: this uses [`aocd`](https://github.com/wimglenn/advent-of-code-data) to gen
 
 Run code and tests:
 ```shell
-python y_<year>/d_<day>.py
-pytest y_<year>    # alt. y_<year>/tests/test_<day>.py
+python y_<year>/d_<day>.py      # or: uv run python y_<year>/d_<day>.py
+pytest y_<year>                # alt. y_<year>/tests/test_<day>.py
+pytest                         # the whole repo, all years
 ```
 
 
